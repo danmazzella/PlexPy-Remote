@@ -50,6 +50,7 @@ h2, h3 {
 
 .bg-accent {
   background-color: #dba342;
+  /*color: #1f1f1f;*/
 }
 .bg-accent h2 {
   font-size: 3em;
@@ -95,6 +96,7 @@ header a, header a:hover {
 header .btn-header {
   max-width: 180px;
   width: 100%;
+  margin-bottom:1em;
   color: rgba(255, 255, 255, 0.7);
   background-color: #313131;
   border-color: #f9be03;
