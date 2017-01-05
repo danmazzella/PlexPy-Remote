@@ -95,9 +95,7 @@ h1, h2, h3 {
 
 .bg-accent a:hover {
   color: #fff;
-}
-.bg-accent svg:hover {
-  fill: #fff;
+  text-decoration: none;
 }
 
 .bg-secondary {
