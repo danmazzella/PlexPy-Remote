@@ -11,6 +11,7 @@
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="css/jquery.flipster.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -24,30 +25,41 @@
 <header>
   <div class="container">
     <h1 class="logo"><img src="images/logo-thin.png"></h1>
-    <h2 class="tagline">Android client for <a href="https://jonnywong16.github.io/plexpy/">PlexPy</a></h2>
+    <h2 class="tagline">Remotely monitor your Plex Media Server</h2>
 
+<div class="row"><div class="col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="row">
       <div class="col-sm-6 col-xs-12 text-center">
-        <a href="https://github.com/wcomartin/PlexPy-Remote" class="btn btn-lg btn-header pull-right-sm">View on
-          GitHub</a>
+        <a href="https://github.com/wcomartin/PlexPy-Remote" 
+           class="btn btn-block btn-lg btn-header pull-right-sm">View on Github</a>
       </div>
       <div class="col-sm-6 col-xs-12 text-center">
         <a href="https://play.google.com/store/apps/details?id=com.williamcomartin.plexpyremote"
-           class="btn btn-lg btn-header btn-play pull-left-sm">&nbsp;</a>
+           class="btn btn-block btn-lg btn-header btn-play pull-left-sm">&nbsp;</a>
       </div>
     </div>
+    <h2 class="tagline">Works With</h2>
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 col-xs-12 text-center">
+        <a href="https://jonnywong16.github.io/plexpy/"
+           class="btn btn-block btn-lg btn-header btn-plexpy pull-left-sm">&nbsp;</a>
+      </div>
+    </div>
+    </div></div>
 
   </div>
 </header>
 
-<div class="bg-accent">
-  <div class="container" style="padding: 5em 1em;">
-    <h2>What is PlexPy Remote</h2>
+<div class="main-content bg-accent">
+  <div class="container">
+    <h1>What is PlexPy Remote</h1>
     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet enim eget urna consequat, vel dapibus lacus sollicitudin. Vivamus viverra nec sem nec bibendum. Phasellus viverra aliquam orci quis maximus. Integer metus sem, finibus quis finibus et, sodales ut purus. Nunc pellentesque, orci in convallis tempor, justo justo ultricies orci, at accumsan enim ex quis sem. Sed sed magna eros. Proin sodales, massa quis lacinia suscipit, dui purus consectetur dui, faucibus laoreet lectus nibh in ipsum. Aliquam ac sodales diam, vitae sagittis elit. Proin vel ornare sapien.</p>
   </div>
 </div>
 
-<div class="container" style="padding: 5em 0;">
+<div class="main-content bg-default">
+<div class="container">
+  <h1>Features</h1>
   <div class="row">
 
     <div class="col-sm-3 hidden-xs">
@@ -83,10 +95,29 @@
 
   </div>
 </div>
+</div>
 
-<div class="bg-accent">
-  <div class="container" style="padding: 5em 1em;">
-    <h2 class="text-center">Find Ways To Help Out</h2>
+<div class="main-content bg-secondary">
+  <div class="container">
+    <h1>Screenshots</h1>
+    <div class="my-flipster">
+      <ul>
+        <li><img src="http://placehold.it/1080x1920" style="max-width: 300px;" /></li>
+        <li><img src="http://placehold.it/1080x1920" style="max-width: 300px;" /></li>
+        <li><img src="http://placehold.it/1080x1920" style="max-width: 300px;" /></li>
+        <li><img src="http://placehold.it/1080x1920" style="max-width: 300px;" /></li>
+        <li><img src="http://placehold.it/1080x1920" style="max-width: 300px;" /></li>
+        <li><img src="http://placehold.it/1080x1920" style="max-width: 300px;" /></li>
+        <li><img src="http://placehold.it/1080x1920" style="max-width: 300px;" /></li>
+        <li><img src="http://placehold.it/1080x1920" style="max-width: 300px;" /></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="main-content bg-accent">
+  <div class="container">
+    <h1 class="text-center">Find Ways To Help Out</h1>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="row">
@@ -119,5 +150,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.flipster.min.js"></script>
+
+<script>
+  $('.my-flipster').flipster();
+</script>
+
 </body>
 </html>

@@ -48,8 +48,35 @@ body {
   background-color: #1f1f1f;
 }
 
-h2, h3 {
+h1, h2, h3 {
   font-weight: lighter;
+}
+
+.main-content {
+  padding: 5em 0;
+  position: relative;
+}
+
+.main-content h1 {
+  
+}
+
+.main-content h1 {
+  font-size: 3em;
+
+  padding: 1em;
+  padding-top:0;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #dba342;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  color: #dba342;
 }
 
 .bg-accent {
@@ -57,9 +84,9 @@ h2, h3 {
   /*color: #1f1f1f;*/
 }
 
-.bg-accent h2 {
-  font-size: 3em;
-  margin-bottom: 1em;
+.bg-accent h1 {
+  border-color: #eee;
+  color: #eee;
 }
 
 .bg-accent a {
@@ -68,6 +95,10 @@ h2, h3 {
 
 .bg-accent a:hover {
   color: #fff;
+}
+
+.bg-secondary {
+  background-color: rgba(255,255,255,0.05)
 }
 
 header {
@@ -81,7 +112,7 @@ header {
 
 @media (min-width: 768px) {
   header {
-    padding: 12em 0;
+    padding: 8em 0;
   }
 }
 
@@ -108,8 +139,8 @@ header a, header a:hover {
 }
 
 header .btn-header {
-  max-width: 180px;
-  width: 100%;
+  /*max-width: 180px;
+  width: 100%;*/
   margin-bottom: 1em;
   color: rgba(255, 255, 255, 0.7);
   background-color: #313131;
@@ -130,6 +161,14 @@ header .btn-play {
   background-size: contain;
 }
 
+header .btn-plexpy {
+  display: inline-block;
+  background-image: url('../images/logo-plexpy.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 .feature-item {
   padding-top: 4em;
   padding-bottom: 4em;
@@ -138,5 +177,4 @@ header .btn-play {
 .footer {
   padding-top: 40px;
   padding-bottom: 40px;
-  border-top: 1px solid #eee;
 }
