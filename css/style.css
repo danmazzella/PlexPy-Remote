@@ -136,7 +136,7 @@ header .tagline {
 }
 
 header a, header a:hover {
-  color: #f9be03
+  color: #dba342
 }
 
 header .btn-header {
@@ -145,13 +145,13 @@ header .btn-header {
   margin-bottom: 1em;
   color: rgba(255, 255, 255, 0.7);
   background-color: #313131;
-  border-color: #f9be03;
+  border-color: #dba342;
 }
 
 header .btn-header:hover {
   color: rgba(255, 255, 255, 0.8);
   background-color: #4c4c4c;
-  border-color: #f9be03;
+  border-color: #dba342;
 }
 
 header .btn-play {
@@ -170,10 +170,42 @@ header .btn-plexpy {
   background-size: contain;
 }
 
-.feature-item {
-  padding-top: 4em;
-  padding-bottom: 4em;
+
+.features #feature-phone {
+  position: absolute; 
+  height:100%; 
+  top: 0; 
+  left: 0
 }
+
+.features #feature-phone img {
+  position: relative; 
+  top: 50%; 
+  transform: translateY(-50%);
+}
+
+
+.feature-item {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+@media (min-width: 992px) {
+  .feature-item {
+    padding-top: 4em;
+    padding-bottom: 4em;
+  }
+}
+.feature-item .icon span {
+  color: #dba342
+}
+.feature-item .icon img {
+  width: 48px;
+}
+.feature-item h3 {
+  text-transform: uppercase;
+}
+
+
 
 .footer {
   padding-top: 40px;
