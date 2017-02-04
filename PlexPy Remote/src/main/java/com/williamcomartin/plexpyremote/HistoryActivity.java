@@ -1,14 +1,22 @@
 package com.williamcomartin.plexpyremote;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -27,23 +35,47 @@ public class HistoryActivity extends NavBaseActivity {
     private RecyclerView rvHistory;
     private Context context;
 
+    private String query = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         setupActionBar();
+
+        handleIntent(getIntent());
         
         context = this;
 
         rvHistory = (RecyclerView) findViewById(R.id.rvHistory);
+        loadHistory();
+        rvHistory.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-        SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+        loadHistory();
+    }
 
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            query = intent.getStringExtra(SearchManager.QUERY);
+        }
+    }
+
+    private void loadHistory(){
         try {
-            String url = UrlHelpers.getHostPlusAPIKey() + "&cmd=get_history";
+            Uri.Builder builder = UrlHelpers.getUriBuilder();
+            builder.appendQueryParameter("cmd", "get_history");
+            if(!query.equals("")){
+                builder.appendQueryParameter("search", query);
+            }
+
+            Log.d("LOADHISTORY", builder.toString());
 
             GsonRequest<HistoryModels> request = new GsonRequest<>(
-                    url,
+                    builder.toString(),
                     HistoryModels.class,
                     null,
                     requestListener(),
@@ -54,9 +86,6 @@ public class HistoryActivity extends NavBaseActivity {
         } catch (NoServerException | MalformedURLException e) {
             e.printStackTrace();
         }
-
-
-        rvHistory.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private Response.ErrorListener errorListener() {
@@ -80,6 +109,39 @@ public class HistoryActivity extends NavBaseActivity {
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.history);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.history_action_menu, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setIconifiedByDefault(true);
+        searchView.setFocusable(true);
+        searchView.setIconified(false);
+        searchView.requestFocusFromTouch();
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                return true;
+            case R.id.action_sort:
+                Toast.makeText(this, "Sort selected", Toast.LENGTH_SHORT)
+                        .show();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
