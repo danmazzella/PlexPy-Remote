@@ -2,9 +2,7 @@ package com.williamcomartin.plexpyremote;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +21,6 @@ import java.net.MalformedURLException;
 
 public class HistoryActivity extends NavBaseActivity {
 
-    private SharedPreferences SP;
     private RecyclerView rvHistory;
     private Context context;
 
@@ -35,9 +32,7 @@ public class HistoryActivity extends NavBaseActivity {
         
         context = this;
 
-        rvHistory = (RecyclerView) findViewById(R.id.rvHistory);
-
-        SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        rvHistory = findViewById(R.id.rvHistory);
 
         try {
             String url = UrlHelpers.getHostPlusAPIKey() + "&cmd=get_history";
@@ -79,7 +74,7 @@ public class HistoryActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.history);
+        if (actionBar != null) actionBar.setTitle(R.string.history);
     }
 
     @Override
