@@ -3,24 +3,18 @@ package com.williamcomartin.plexpyremote.SharedFragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.williamcomartin.plexpyremote.Models.LibraryGlobalStatsModels;
 import com.williamcomartin.plexpyremote.Models.UserPlayerStatsModels;
 import com.williamcomartin.plexpyremote.R;
 
 import java.util.List;
 
 public class PlayerStatsFragment extends Fragment {
-
-    private int mColumnCount = 2;
-    private List<LibraryGlobalStatsModels.LibraryGlobalStat> userID;
-    private List<UserPlayerStatsModels.PlayerStat> playerStats;
 
     private RecyclerView playerStatsRecyclerView;
 
@@ -46,7 +40,6 @@ public class PlayerStatsFragment extends Fragment {
     }
 
     public void setPlayerStats(List<UserPlayerStatsModels.PlayerStat> playerStats) {
-        this.playerStats = playerStats;
-        playerStatsRecyclerView.setAdapter(new PlayerStatsRecyclerViewAdapter(this.playerStats));
+        playerStatsRecyclerView.setAdapter(new PlayerStatsRecyclerViewAdapter(playerStats));
     }
 }
