@@ -1,31 +1,15 @@
 package com.williamcomartin.plexpyremote.UserActivities;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
-import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
-import com.williamcomartin.plexpyremote.MediaActivities.Show.ShowPagerAdapter;
-import com.williamcomartin.plexpyremote.Models.UserPlayerStatsModels;
-import com.williamcomartin.plexpyremote.Models.UserWatchStatsModels;
 import com.williamcomartin.plexpyremote.NavBaseActivity;
 import com.williamcomartin.plexpyremote.R;
 
-import java.net.MalformedURLException;
-
 public class UserDetailActivity extends NavBaseActivity {
 
-    private Intent intent;
-    private SharedPreferences SP;
     private Bundle extras;
 
     @Override
@@ -127,17 +111,17 @@ public class UserDetailActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        if (extras != null) {
+        if (actionBar != null && extras != null) {
             actionBar.setTitle(extras.getString("UserName"));
         }
     }
 
     protected void setupPager() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.user_pager);
+        ViewPager viewPager = findViewById(R.id.user_pager);
         UserPagerAdapter pagerAdapter = new UserPagerAdapter(getSupportFragmentManager(), extras.getString("UserID"));
         viewPager.setAdapter(pagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.user_taber);
+        TabLayout tabLayout = findViewById(R.id.user_taber);
         tabLayout.setupWithViewPager(viewPager);
     }
 }
