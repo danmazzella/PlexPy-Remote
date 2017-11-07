@@ -11,10 +11,9 @@ import android.view.ViewGroup;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.williamcomartin.plexpyremote.Adapters.LibraryDetailsMediaListAdapter;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
+import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
 import com.williamcomartin.plexpyremote.Models.LibraryMediaModels;
 import com.williamcomartin.plexpyremote.R;
@@ -23,7 +22,6 @@ import java.net.MalformedURLException;
 
 public class LibraryDetailsMediaFragment extends Fragment {
 
-    private String libraryId;
     private RecyclerView mMediaListRecyclerView;
 //    private VerticalRecyclerViewFastScroller mMediaListRecyclerFastScroller;
 //    private SectionTitleIndicator mMediaListRecyclerFastScrollerIndicator;
@@ -43,7 +41,7 @@ public class LibraryDetailsMediaFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_library_details_media, container, false);
 
-        mMediaListRecyclerView = (RecyclerView) view.findViewById(R.id.library_details_media_list);
+        mMediaListRecyclerView = view.findViewById(R.id.library_details_media_list);
 
         mMediaListRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mMediaListRecyclerView.setAdapter(new LibraryDetailsMediaListAdapter(this.getContext()));
@@ -52,7 +50,6 @@ public class LibraryDetailsMediaFragment extends Fragment {
     }
 
     public void setLibraryId(String libraryId){
-        this.libraryId = libraryId;
         try {
             String url = UrlHelpers.getHostPlusAPIKey() + "&cmd=get_library_media_info&length=100000000000&section_id=" + libraryId;
             fetchData(url);
