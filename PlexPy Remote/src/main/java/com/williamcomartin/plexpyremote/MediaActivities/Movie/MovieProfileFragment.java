@@ -32,10 +32,9 @@ import java.net.MalformedURLException;
 /**
  * Created by wcomartin on 2016-12-14.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class MovieProfileFragment extends Fragment {
 
-    private View view;
     private String ratingKey;
 
     private NetworkImageView vImage;
@@ -64,23 +63,23 @@ public class MovieProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_movie_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_movie_profile, container, false);
 
         context = this.getContext();
 
-        vImage = (NetworkImageView) view.findViewById(R.id.show_profile_image);
-        vDirectors = (LinearLayout) view.findViewById(R.id.show_profile_directors);
-        vStudio = (TextView) view.findViewById(R.id.show_profile_studio);
-        vAired = (TextView) view.findViewById(R.id.show_profile_aired);
-        vRuntime = (TextView) view.findViewById(R.id.show_profile_runtime);
-        vRated = (TextView) view.findViewById(R.id.show_profile_rated);
-        vRating = (RatingBar) view.findViewById(R.id.show_profile_rating);
+        vImage = view.findViewById(R.id.show_profile_image);
+        vDirectors = view.findViewById(R.id.show_profile_directors);
+        vStudio = view.findViewById(R.id.show_profile_studio);
+        vAired = view.findViewById(R.id.show_profile_aired);
+        vRuntime = view.findViewById(R.id.show_profile_runtime);
+        vRated = view.findViewById(R.id.show_profile_rated);
+        vRating = view.findViewById(R.id.show_profile_rating);
 
-        vDescription = (TextView) view.findViewById(R.id.show_profile_description);
+        vDescription = view.findViewById(R.id.show_profile_description);
 
-        vStarring = (LinearLayout) view.findViewById(R.id.show_profile_starring);
-        vGenres = (LinearLayout) view.findViewById(R.id.show_profile_genres);
-        vWriters = (LinearLayout) view.findViewById(R.id.show_profile_writers);
+        vStarring = view.findViewById(R.id.show_profile_starring);
+        vGenres = view.findViewById(R.id.show_profile_genres);
+        vWriters = view.findViewById(R.id.show_profile_writers);
 
         fetchProfile();
         return view;

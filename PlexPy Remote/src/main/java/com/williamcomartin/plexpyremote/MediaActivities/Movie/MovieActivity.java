@@ -11,7 +11,7 @@ import com.williamcomartin.plexpyremote.R;
 /**
  * Created by wcomartin on 2016-12-22.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class MovieActivity extends NavBaseActivity {
 
     private Bundle extras;
@@ -34,17 +34,17 @@ public class MovieActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        if (extras != null) {
+        if (actionBar != null && extras != null) {
             actionBar.setTitle(extras.getString("Title"));
         }
     }
 
     protected void setupPager() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.media_pager);
+        ViewPager viewPager = findViewById(R.id.media_pager);
         MoviePagerAdapter pagerAdapter = new MoviePagerAdapter(getSupportFragmentManager(), extras.getString("RatingKey"));
         viewPager.setAdapter(pagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.media_taber);
+        TabLayout tabLayout = findViewById(R.id.media_taber);
         tabLayout.setupWithViewPager(viewPager);
     }
 }
