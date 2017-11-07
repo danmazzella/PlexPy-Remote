@@ -1,51 +1,40 @@
 package com.williamcomartin.plexpyremote.Adapters;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.StrictMode;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.BaseAdapter;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
-
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
 import com.williamcomartin.plexpyremote.Models.LibraryUsersStatsModels;
 import com.williamcomartin.plexpyremote.R;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 /**
  * Created by wcomartin on 2016-11-27.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class UserTopStatAdapter extends BaseAdapter {
     private Context context;
     private List<LibraryUsersStatsModels.LibraryUsersStat> users;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        protected NetworkImageView vAvatar;
-        protected TextView vName;
-        protected TextView vPlays;
+        NetworkImageView vAvatar;
+        TextView vName;
+        TextView vPlays;
 
         public ViewHolder(final View itemView) {
             super(itemView);
 
-            this.vAvatar = (NetworkImageView) itemView.findViewById(R.id.user_top_stat_image);
-            this.vName = (TextView) itemView.findViewById(R.id.user_top_stat_name);
-            this.vPlays = (TextView) itemView.findViewById(R.id.user_top_stat_plays);
+            this.vAvatar = itemView.findViewById(R.id.user_top_stat_image);
+            this.vName = itemView.findViewById(R.id.user_top_stat_name);
+            this.vPlays = itemView.findViewById(R.id.user_top_stat_plays);
         }
     }
 
@@ -66,6 +55,7 @@ public class UserTopStatAdapter extends BaseAdapter {
         final ViewHolder viewHolder;
 
         if(view == null){
+            assert inflater != null;
             view = inflater.inflate(R.layout.item_user_top_stat, null);
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);

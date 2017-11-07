@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -35,7 +36,7 @@ import java.util.regex.Pattern;
 /**
  * Created by wcomartin on 2016-12-05.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class ServerQRScannerActivity extends Activity {
 
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
@@ -57,7 +58,7 @@ public class ServerQRScannerActivity extends Activity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
             case MY_PERMISSIONS_REQUEST_CAMERA: {
@@ -74,6 +75,7 @@ public class ServerQRScannerActivity extends Activity {
 
         try {
             CameraManager manager = (CameraManager) getApplicationContext().getSystemService(Context.CAMERA_SERVICE);
+            assert manager != null;
             String[] cameraIds = manager.getCameraIdList();
             for (int i = 0; i < cameraIds.length; i++) {
                 CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraIds[i]);
@@ -84,6 +86,7 @@ public class ServerQRScannerActivity extends Activity {
                 }
             }
         } catch (CameraAccessException e) {
+            Log.e("map values", "scanCode error: " + e.getMessage());
         }
 
     }
@@ -143,8 +146,7 @@ public class ServerQRScannerActivity extends Activity {
         @Override
         protected Boolean doInBackground(String... params) {
             String address = getAddress(params[0]);
-            Boolean isLocal = testAddress(address);
-            return isLocal;
+            return testAddress(address);
         }
 
         private String getAddress(String part){
@@ -167,6 +169,7 @@ public class ServerQRScannerActivity extends Activity {
                     return true;
                 }
             } catch (UnknownHostException e){
+                Log.e("map values", "testAddress error: " + e.getMessage());
             }
             return false;
         }

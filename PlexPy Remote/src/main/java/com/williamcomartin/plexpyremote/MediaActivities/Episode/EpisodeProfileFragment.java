@@ -1,6 +1,5 @@
 package com.williamcomartin.plexpyremote.MediaActivities.Episode;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,17 +25,14 @@ import java.net.MalformedURLException;
 /**
  * Created by wcomartin on 2016-12-14.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class EpisodeProfileFragment extends Fragment {
 
     private FragmentEpisodeProfileBinding binding;
 
-    private View view;
     private String ratingKey;
 
     private NetworkImageView vImage;
-
-    private Context context;
 
     public EpisodeProfileFragment() {}
 
@@ -51,11 +47,9 @@ public class EpisodeProfileFragment extends Fragment {
         // Fancy new binding :)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_episode_profile,
                 container, false);
-        view = binding.getRoot();
+        View view = binding.getRoot();
 
-        vImage = (NetworkImageView) view.findViewById(R.id.episode_profile_image);
-
-        context = this.getContext();
+        vImage = view.findViewById(R.id.episode_profile_image);
 
         fetchProfile();
         return view;

@@ -1,5 +1,6 @@
 package com.williamcomartin.plexpyremote;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,10 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -41,6 +44,7 @@ import java.net.MalformedURLException;
 /**
  * Created by wcomartin on 2015-11-04.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class NavBaseActivity extends AppBaseActivity {
 
     protected ActionBarDrawerToggle mDrawerToggle;
@@ -49,9 +53,6 @@ public class NavBaseActivity extends AppBaseActivity {
     protected boolean pageHasDrawer = true;
     private TextView drawerText1;
     private TextView drawerText2;
-
-    private SharedPreferences SP;
-
 
     private static MenuItem activeMenuItem;
 
@@ -70,8 +71,6 @@ public class NavBaseActivity extends AppBaseActivity {
     }
 
     protected void setIcons() {
-
-        Menu menu = navigationView.getMenu();
 
         setupNavItem(R.id.navigation_item_activity, MaterialIcons.md_tv);
         setupNavItem(R.id.navigation_item_users, MaterialIcons.md_people);
@@ -119,7 +118,7 @@ public class NavBaseActivity extends AppBaseActivity {
     protected void onStart() {
         super.onStart();
 
-        SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         try {
             String url = UrlHelpers.getHostPlusAPIKey() + "&cmd=get_server_friendly_name";
@@ -160,23 +159,26 @@ public class NavBaseActivity extends AppBaseActivity {
 
         moveDrawerToTop();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
 
-        mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.navigation);
+        mainDrawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation);
 
         // setup nav drawer items
         navigationView.inflateMenu(R.menu.drawer);
         final View headerView = navigationView.inflateHeaderView(R.layout.drawer_header);
 
-        drawerText1 = (TextView) headerView.findViewById(R.id.drawerText1);
-        drawerText2 = (TextView) headerView.findViewById(R.id.drawerText2);
+        drawerText1 = headerView.findViewById(R.id.drawerText1);
+        drawerText2 = headerView.findViewById(R.id.drawerText2);
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         menuItem.setChecked(true);
                         onNavItemClick(menuItem.getItemId());
                         return true;
@@ -190,13 +192,15 @@ public class NavBaseActivity extends AppBaseActivity {
     private void moveDrawerToTop() {
         // Inflate the "decor.xml"
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        @SuppressLint("InflateParams")
         DrawerLayout drawer = (DrawerLayout) inflater.inflate(R.layout.decor, null); // "null" is important.
 
         // HACK: "steal" the first child of decor view
         ViewGroup decor = (ViewGroup) getWindow().getDecorView();
         View child = decor.getChildAt(0);
         decor.removeView(child);
-        FrameLayout container = (FrameLayout) drawer.findViewById(R.id.container); // This is the container we defined just now.
+        FrameLayout container = drawer.findViewById(R.id.container); // This is the container we defined just now.
         container.addView(child);
 
         // Make the drawer replace the first child
@@ -277,7 +281,7 @@ public class NavBaseActivity extends AppBaseActivity {
         };
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mainDrawerLayout.setDrawerListener(mDrawerToggle);
+        mainDrawerLayout.addDrawerListener(mDrawerToggle);
 
     }
 
@@ -307,17 +311,14 @@ public class NavBaseActivity extends AppBaseActivity {
 //            return true;
 //        }
 
-        if(id == android.R.id.home && !pageHasDrawer){
+        if (id == android.R.id.home && !pageHasDrawer) {
             onBackPressed();
             return true;
         }
 
         // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

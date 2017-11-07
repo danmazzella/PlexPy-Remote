@@ -1,34 +1,27 @@
 package com.williamcomartin.plexpyremote.UserActivities;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
-import com.williamcomartin.plexpyremote.Adapters.HistoryAdapter;
 import com.williamcomartin.plexpyremote.Helpers.CircularNetworkImageView;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
-import com.williamcomartin.plexpyremote.Models.ActivityModels;
 import com.williamcomartin.plexpyremote.Models.HistoryModels;
 import com.williamcomartin.plexpyremote.Models.UserModels;
 import com.williamcomartin.plexpyremote.R;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 
 public class UserProfileFragment extends Fragment {
 

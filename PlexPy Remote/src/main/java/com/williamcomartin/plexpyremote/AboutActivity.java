@@ -35,7 +35,7 @@ public class AboutActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.about);
+        if (actionBar != null) actionBar.setTitle(R.string.about);
     }
 
     @Override

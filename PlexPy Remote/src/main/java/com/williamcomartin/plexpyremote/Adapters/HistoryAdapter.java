@@ -33,10 +33,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by wcomartin on 2015-12-03.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
-
-
-    private SharedPreferences SP;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -63,25 +61,25 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
 
-            vCard = (CardView) itemView.findViewById(R.id.history_card_view);
-            vCardSecondary = (CardView) itemView.findViewById(R.id.history_card_secondary_view);
+            vCard = itemView.findViewById(R.id.history_card_view);
+            vCardSecondary = itemView.findViewById(R.id.history_card_secondary_view);
 
-            vTitle = (TextView) itemView.findViewById(R.id.history_card_title);
-            vDate = (TextView) itemView.findViewById(R.id.history_card_date);
-            vImage = (NetworkImageView) itemView.findViewById(R.id.history_card_image);
-            vUser = (TextView) itemView.findViewById(R.id.history_card_user);
-            vEpisode = (TextView) itemView.findViewById(R.id.history_card_episode);
+            vTitle = itemView.findViewById(R.id.history_card_title);
+            vDate = itemView.findViewById(R.id.history_card_date);
+            vImage = itemView.findViewById(R.id.history_card_image);
+            vUser = itemView.findViewById(R.id.history_card_user);
+            vEpisode = itemView.findViewById(R.id.history_card_episode);
 
-            vState = (IconTextView) itemView.findViewById(R.id.history_card_state);
-            vProgress = (IconTextView) itemView.findViewById(R.id.history_card_progress);
-            vProgressText = (TextView) itemView.findViewById(R.id.history_card_progress_text);
+            vState = itemView.findViewById(R.id.history_card_state);
+            vProgress = itemView.findViewById(R.id.history_card_progress);
+            vProgressText = itemView.findViewById(R.id.history_card_progress_text);
 
-            vStarted = (TextView) itemView.findViewById(R.id.history_card_started);
-            vStopped = (TextView) itemView.findViewById(R.id.history_card_stopped);
-            vPaused = (TextView) itemView.findViewById(R.id.history_card_paused);
-            vDuration = (TextView) itemView.findViewById(R.id.history_card_duration);
-            vIPAddress = (TextView) itemView.findViewById(R.id.history_card_ipaddress);
-            vPlayer = (TextView) itemView.findViewById(R.id.history_card_player);
+            vStarted = itemView.findViewById(R.id.history_card_started);
+            vStopped = itemView.findViewById(R.id.history_card_stopped);
+            vPaused = itemView.findViewById(R.id.history_card_paused);
+            vDuration = itemView.findViewById(R.id.history_card_duration);
+            vIPAddress = itemView.findViewById(R.id.history_card_ipaddress);
+            vPlayer = itemView.findViewById(R.id.history_card_player);
         }
     }
 
@@ -92,7 +90,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public HistoryAdapter(Context context, List<HistoryModels.HistoryRecord> historyItems) {
         this.context = context;
         this.historyItems = historyItems;
-        SP = PreferenceManager.getDefaultSharedPreferences(ApplicationController.getInstance().getApplicationContext());
     }
 
     public void setHistory(List<HistoryModels.HistoryRecord> historyItems) {
@@ -112,8 +109,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         View contactView = inflater.inflate(R.layout.item_history, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
@@ -127,8 +123,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             @Override
             public boolean onLongClick(View v) {
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewHolder.vCardSecondary.getLayoutParams();
-                if (params.topMargin == 0) historyItem.detailsOpen = true;
-                else historyItem.detailsOpen = false;
+                historyItem.detailsOpen = params.topMargin == 0;
                 toggleDetailsView(viewHolder, historyItem.detailsOpen);
                 return true;
             }
@@ -150,7 +145,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         if(historyItem.mediaType != null) {
             switch (historyItem.mediaType){
                 case "episode":
-                    viewHolder.vEpisode.setText("S" + historyItem.parentMediaIndex + " • E" + historyItem.mediaIndex);
+                    String episodeText = "S" + historyItem.parentMediaIndex + " • E" + historyItem.mediaIndex;
+                    viewHolder.vEpisode.setText(episodeText);
                     break;
                 case "movie":
                     viewHolder.vEpisode.setText(String.valueOf(historyItem.year));
@@ -187,7 +183,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                 viewHolder.vProgress.setText("{fa-circle}");
             }
 
-            viewHolder.vProgressText.setText(String.valueOf(historyItem.percentComplete) + "%");
+            String percentComplete = String.valueOf(historyItem.percentComplete) + "%";
+            viewHolder.vProgressText.setText(percentComplete);
         }
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");

@@ -1,6 +1,5 @@
 package com.williamcomartin.plexpyremote.UserActivities;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,8 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 public class UserWatchStatsFragment extends Fragment {
 
-    private SharedPreferences SP;
-
     private UserWatchStatsModels.WatchStat mStat;
 
     @Override
@@ -25,7 +22,7 @@ public class UserWatchStatsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_watch_stats, container, false);
 
-        TextView mTitle = (TextView) view.findViewById(R.id.watch_stats_card_title);
+        TextView mTitle = view.findViewById(R.id.watch_stats_card_title);
         switch (mStat.queryDays){
             case 1:
                 mTitle.setText("Last 24 Hours");

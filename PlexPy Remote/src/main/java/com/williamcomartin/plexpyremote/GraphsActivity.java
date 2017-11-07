@@ -15,7 +15,7 @@ public class GraphsActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.graphs);
+        if (actionBar != null) actionBar.setTitle(R.string.graphs);
     }
 
     @Override

@@ -4,21 +4,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.williamcomartin.plexpyremote.MediaActivities.Show.ShowProfileFragment;
-import com.williamcomartin.plexpyremote.MediaActivities.Show.ShowSeasonsFragment;
 import com.williamcomartin.plexpyremote.SharedFragments.HistoryFragment;
 
 public class MoviePagerAdapter extends FragmentStatePagerAdapter {
 
     private final String[] tabNames = {"Profile", "History"};
 
-    private final FragmentManager fm;
     private String ratingKey;
 
-    public MoviePagerAdapter(FragmentManager fm, String ratingKey) {
+    MoviePagerAdapter(FragmentManager fm, String ratingKey) {
         super(fm);
 
-        this.fm = fm;
         this.ratingKey = ratingKey;
     }
 

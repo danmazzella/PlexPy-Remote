@@ -22,7 +22,7 @@ public class PlayerStatsRecyclerViewAdapter extends RecyclerView.Adapter<PlayerS
     private final List<UserPlayerStatsModels.PlayerStat> mValues;
     private Context context;
 
-    public PlayerStatsRecyclerViewAdapter(List<UserPlayerStatsModels.PlayerStat> items) {
+    PlayerStatsRecyclerViewAdapter(List<UserPlayerStatsModels.PlayerStat> items) {
         mValues = items;
     }
 
@@ -51,11 +51,11 @@ public class PlayerStatsRecyclerViewAdapter extends RecyclerView.Adapter<PlayerS
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final ImageView mAvatarView;
-        public final TextView mNameView;
-        public final TextView mPlaysView;
-        public UserPlayerStatsModels.PlayerStat mItem;
+        final View mView;
+        final ImageView mAvatarView;
+        final TextView mNameView;
+        final TextView mPlaysView;
+        UserPlayerStatsModels.PlayerStat mItem;
 
         public ViewHolder(View view) {
             super(view);

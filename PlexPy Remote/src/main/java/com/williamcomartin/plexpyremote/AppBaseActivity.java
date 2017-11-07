@@ -1,11 +1,7 @@
 package com.williamcomartin.plexpyremote;
 
-import android.Manifest;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -17,9 +13,8 @@ import com.williamcomartin.plexpyremote.Helpers.RegisterForPushNotificationsAsyn
 /**
  * Created by wcomartin on 2015-11-20.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class AppBaseActivity extends AppCompatActivity {
-
-    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
 
     protected FirebaseAnalytics mFirebaseAnalytics;
 

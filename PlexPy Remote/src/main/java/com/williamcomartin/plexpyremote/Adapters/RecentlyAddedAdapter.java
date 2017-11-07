@@ -1,8 +1,6 @@
 package com.williamcomartin.plexpyremote.Adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
-import com.williamcomartin.plexpyremote.Models.HistoryModels;
 import com.williamcomartin.plexpyremote.Models.RecentlyAddedModels;
 import com.williamcomartin.plexpyremote.R;
 
@@ -24,10 +20,8 @@ import java.util.List;
 /**
  * Created by wcomartin on 2015-12-03.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecentlyAddedAdapter.ViewHolder> {
-
-
-    private SharedPreferences SP;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -39,10 +33,10 @@ public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecentlyAddedAdap
         public ViewHolder(View itemView) {
             super(itemView);
 
-            vImage = (NetworkImageView) itemView.findViewById(R.id.recently_added_card_image);
-            vParentTitle = (TextView) itemView.findViewById(R.id.recently_added_card_parent_title);
-            vTitle = (TextView) itemView.findViewById(R.id.recently_added_card_title);
-            vDate = (TextView) itemView.findViewById(R.id.recently_added_card_date);
+            vImage = itemView.findViewById(R.id.recently_added_card_image);
+            vParentTitle = itemView.findViewById(R.id.recently_added_card_parent_title);
+            vTitle = itemView.findViewById(R.id.recently_added_card_title);
+            vDate = itemView.findViewById(R.id.recently_added_card_date);
         }
     }
 
@@ -50,7 +44,6 @@ public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecentlyAddedAdap
 
     // Pass in the contact array into the constructor
     public RecentlyAddedAdapter(List<RecentlyAddedModels.RecentItem> recentlyAddedItems) {
-        SP = PreferenceManager.getDefaultSharedPreferences(ApplicationController.getInstance().getApplicationContext());
     }
 
     public void setRecentlyAdded(List<RecentlyAddedModels.RecentItem> recentlyAddedItems) {
@@ -76,8 +69,7 @@ public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecentlyAddedAdap
         View contactView = inflater.inflate(R.layout.item_recently_added, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override

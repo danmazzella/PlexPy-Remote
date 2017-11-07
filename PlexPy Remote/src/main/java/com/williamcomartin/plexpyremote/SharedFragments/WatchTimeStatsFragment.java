@@ -61,49 +61,49 @@ public class WatchTimeStatsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_watch_time_stats, container, false);
 
-        last24Plays = (TextView) view.findViewById(R.id.library_details_global_24_plays);
+        last24Plays =  view.findViewById(R.id.library_details_global_24_plays);
 
-        last24DaysLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_24_days_layout);
-        last24Days = (TextView) view.findViewById(R.id.library_details_global_24_days);
+        last24DaysLayout =  view.findViewById(R.id.library_details_global_24_days_layout);
+        last24Days =  view.findViewById(R.id.library_details_global_24_days);
 
-        last24HrsLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_24_hrs_layout);
-        last24Hrs = (TextView) view.findViewById(R.id.library_details_global_24_hrs);
+        last24HrsLayout =  view.findViewById(R.id.library_details_global_24_hrs_layout);
+        last24Hrs =  view.findViewById(R.id.library_details_global_24_hrs);
 
-        last24MinsLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_24_mins_layout);
-        last24Mins = (TextView) view.findViewById(R.id.library_details_global_24_mins);
+        last24MinsLayout =  view.findViewById(R.id.library_details_global_24_mins_layout);
+        last24Mins =  view.findViewById(R.id.library_details_global_24_mins);
 
-        last7Plays = (TextView) view.findViewById(R.id.library_details_global_7_plays);
+        last7Plays =  view.findViewById(R.id.library_details_global_7_plays);
 
-        last7DaysLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_7_days_layout);
-        last7Days = (TextView) view.findViewById(R.id.library_details_global_7_days);
+        last7DaysLayout =  view.findViewById(R.id.library_details_global_7_days_layout);
+        last7Days =  view.findViewById(R.id.library_details_global_7_days);
 
-        last7HrsLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_7_hrs_layout);
-        last7Hrs = (TextView) view.findViewById(R.id.library_details_global_7_hrs);
+        last7HrsLayout =  view.findViewById(R.id.library_details_global_7_hrs_layout);
+        last7Hrs =  view.findViewById(R.id.library_details_global_7_hrs);
 
-        last7MinsLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_7_mins_layout);
-        last7Mins = (TextView) view.findViewById(R.id.library_details_global_7_mins);
+        last7MinsLayout =  view.findViewById(R.id.library_details_global_7_mins_layout);
+        last7Mins =  view.findViewById(R.id.library_details_global_7_mins);
 
-        last30Plays = (TextView) view.findViewById(R.id.library_details_global_30_plays);
+        last30Plays =  view.findViewById(R.id.library_details_global_30_plays);
 
-        last30DaysLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_30_days_layout);
-        last30Days = (TextView) view.findViewById(R.id.library_details_global_30_days);
+        last30DaysLayout =  view.findViewById(R.id.library_details_global_30_days_layout);
+        last30Days =  view.findViewById(R.id.library_details_global_30_days);
 
-        last30HrsLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_30_hrs_layout);
-        last30Hrs = (TextView) view.findViewById(R.id.library_details_global_30_hrs);
+        last30HrsLayout =  view.findViewById(R.id.library_details_global_30_hrs_layout);
+        last30Hrs =  view.findViewById(R.id.library_details_global_30_hrs);
 
-        last30MinsLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_30_mins_layout);
-        last30Mins = (TextView) view.findViewById(R.id.library_details_global_30_mins);
+        last30MinsLayout =  view.findViewById(R.id.library_details_global_30_mins_layout);
+        last30Mins =  view.findViewById(R.id.library_details_global_30_mins);
 
-        lastAllPlays = (TextView) view.findViewById(R.id.library_details_global_all_plays);
+        lastAllPlays =  view.findViewById(R.id.library_details_global_all_plays);
 
-        lastAllDaysLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_all_days_layout);
-        lastAllDays = (TextView) view.findViewById(R.id.library_details_global_all_days);
+        lastAllDaysLayout =  view.findViewById(R.id.library_details_global_all_days_layout);
+        lastAllDays =  view.findViewById(R.id.library_details_global_all_days);
 
-        lastAllHrsLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_all_hrs_layout);
-        lastAllHrs = (TextView) view.findViewById(R.id.library_details_global_all_hrs);
+        lastAllHrsLayout =  view.findViewById(R.id.library_details_global_all_hrs_layout);
+        lastAllHrs =  view.findViewById(R.id.library_details_global_all_hrs);
 
-        lastAllMinsLayout = (RelativeLayout) view.findViewById(R.id.library_details_global_all_mins_layout);
-        lastAllMins = (TextView) view.findViewById(R.id.library_details_global_all_mins);
+        lastAllMinsLayout =  view.findViewById(R.id.library_details_global_all_mins_layout);
+        lastAllMins =  view.findViewById(R.id.library_details_global_all_mins);
 
         return view;
     }

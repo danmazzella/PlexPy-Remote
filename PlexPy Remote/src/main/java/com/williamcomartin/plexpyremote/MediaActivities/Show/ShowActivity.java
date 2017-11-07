@@ -30,17 +30,17 @@ public class ShowActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        if (extras != null) {
+        if (actionBar != null && extras != null) {
             actionBar.setTitle(extras.getString("Title"));
         }
     }
 
     protected void setupPager() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.media_pager);
+        ViewPager viewPager = findViewById(R.id.media_pager);
         ShowPagerAdapter pagerAdapter = new ShowPagerAdapter(getSupportFragmentManager(), extras.getString("RatingKey"));
         viewPager.setAdapter(pagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.media_taber);
+        TabLayout tabLayout = findViewById(R.id.media_taber);
         tabLayout.setupWithViewPager(viewPager);
     }
 }
