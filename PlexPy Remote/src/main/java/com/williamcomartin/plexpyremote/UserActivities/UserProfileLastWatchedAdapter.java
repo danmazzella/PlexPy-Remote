@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
-import com.williamcomartin.plexpyremote.Helpers.CircularNetworkImageView;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
 import com.williamcomartin.plexpyremote.Models.HistoryModels;
@@ -22,17 +21,18 @@ import java.util.List;
 /**
  * Created by wcomartin on 2017-07-15.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class UserProfileLastWatchedAdapter extends ArrayAdapter<HistoryModels.HistoryRecord> {
     private final Context context;
     private final List<HistoryModels.HistoryRecord> historyRecordList;
 
-    public UserProfileLastWatchedAdapter(Context context, List<HistoryModels.HistoryRecord> historyRecordList) {
+    UserProfileLastWatchedAdapter(Context context, List<HistoryModels.HistoryRecord> historyRecordList) {
         super(context, -1, historyRecordList);
         this.context = context;
         this.historyRecordList = historyRecordList;
     }
 
+    @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final HistoryModels.HistoryRecord historyItem = historyRecordList.get(position);
