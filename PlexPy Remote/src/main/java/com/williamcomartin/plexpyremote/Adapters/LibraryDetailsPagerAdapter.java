@@ -2,9 +2,7 @@ package com.williamcomartin.plexpyremote.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import com.williamcomartin.plexpyremote.LibraryDetailsFragments.LibraryDetailsMediaFragment;
 import com.williamcomartin.plexpyremote.LibraryDetailsFragments.LibraryDetailsStatsFragment;
@@ -13,13 +11,11 @@ import com.williamcomartin.plexpyremote.SharedFragments.RecentlyAddedFragment;
 
 public class LibraryDetailsPagerAdapter extends FragmentStatePagerAdapter {
 
-    private final FragmentManager fm;
     private final String libraryId;
 
     public LibraryDetailsPagerAdapter(FragmentManager fm, String libraryId) {
         super(fm);
 
-        this.fm = fm;
         this.libraryId = libraryId;
     }
 
