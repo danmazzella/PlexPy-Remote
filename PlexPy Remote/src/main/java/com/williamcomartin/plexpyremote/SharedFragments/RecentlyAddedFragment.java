@@ -11,11 +11,10 @@ import android.view.ViewGroup;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.williamcomartin.plexpyremote.Adapters.RecentlyAddedAdapter;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.EndlessScrollListener;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
+import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
 import com.williamcomartin.plexpyremote.Models.RecentlyAddedModels;
 import com.williamcomartin.plexpyremote.R;
@@ -41,12 +40,12 @@ public class RecentlyAddedFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recently_added, container, false);
 
-        mRecentlyAddedRecyclerView = (RecyclerView) view.findViewById(R.id.shared_recently_added_rv);
+        mRecentlyAddedRecyclerView = view.findViewById(R.id.shared_recently_added_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         mRecentlyAddedRecyclerView.setLayoutManager(layoutManager);
         mRecentlyAddedRecyclerView.setAdapter(new RecentlyAddedAdapter(new ArrayList<RecentlyAddedModels.RecentItem>()));
 
-        mRecentlyAddedRecyclerView.setOnScrollListener(new EndlessScrollListener(layoutManager) {
+        mRecentlyAddedRecyclerView.addOnScrollListener(new EndlessScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 try {
