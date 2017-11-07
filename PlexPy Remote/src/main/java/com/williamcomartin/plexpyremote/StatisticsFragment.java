@@ -3,8 +3,6 @@ package com.williamcomartin.plexpyremote;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Icon;
-import android.net.Network;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -25,18 +23,11 @@ import com.williamcomartin.plexpyremote.Services.PlatformService;
 /**
  * Created by wcomartin on 2017-01-13.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class StatisticsFragment extends Fragment {
 
     private StatisticsModels.StatisticsGroup stats;
     private String type;
-
-    private TextView vType;
-    private TextView vTitle;
-    private TextView vPlays;
-    private NetworkImageView vImage;
-    private NetworkImageView vCircleImage;
-    private ImageView vSquareImage;
 
     public StatisticsFragment() {}
 
@@ -50,7 +41,7 @@ public class StatisticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        vType = (TextView) view.findViewById(R.id.statistics_primary_card_type);
+        TextView vType = view.findViewById(R.id.statistics_primary_card_type);
         vType.setText(this.type);
 
         if(this.stats != null) {
@@ -87,9 +78,9 @@ public class StatisticsFragment extends Fragment {
             }
         }
 
-        final CardView vSecondaryCard = (CardView) view.findViewById(R.id.statistics_secondary_card);
+        final CardView vSecondaryCard = view.findViewById(R.id.statistics_secondary_card);
 
-        final IconTextView vChevron = (IconTextView) view.findViewById(R.id.statistics_primary_card_chevron);
+        final IconTextView vChevron = view.findViewById(R.id.statistics_primary_card_chevron);
         vChevron.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -109,10 +100,10 @@ public class StatisticsFragment extends Fragment {
     }
 
     public void setTopStat(View view, StatisticsModels.StatisticsRow stat){
-        vTitle = (TextView) view.findViewById(R.id.statistics_primary_card_title);
+        TextView vTitle = view.findViewById(R.id.statistics_primary_card_title);
         vTitle.setText(stat.title);
 
-        vPlays = (TextView) view.findViewById(R.id.statistics_primary_card_plays);
+        TextView vPlays = view.findViewById(R.id.statistics_primary_card_plays);
         if(this.stats.isTop()){
             vPlays.setText(String.valueOf(stat.total_plays));
         }
@@ -120,9 +111,9 @@ public class StatisticsFragment extends Fragment {
             vPlays.setText(String.valueOf(stat.users_watched));
         }
 
-        vImage = (NetworkImageView) view.findViewById(R.id.statistics_primary_card_image);
-        vCircleImage = (NetworkImageView) view.findViewById(R.id.statistics_primary_card_circle_image);
-        vSquareImage = (ImageView) view.findViewById(R.id.statistics_primary_card_square_image);
+        NetworkImageView vImage = view.findViewById(R.id.statistics_primary_card_image);
+        NetworkImageView vCircleImage = view.findViewById(R.id.statistics_primary_card_circle_image);
+        ImageView vSquareImage = view.findViewById(R.id.statistics_primary_card_square_image);
 
         if(this.stats.isTV()){
             vImage.setImageUrl(UrlHelpers.getImageUrl(stat.grandparent_thumb, "400", "600"),
@@ -148,10 +139,10 @@ public class StatisticsFragment extends Fragment {
     }
 
     public void setStat1(View view, StatisticsModels.StatisticsRow stat){
-        TextView vTitle1 = (TextView) view.findViewById(R.id.statistics_secondary_card_1_title);
+        TextView vTitle1 = view.findViewById(R.id.statistics_secondary_card_1_title);
         vTitle1.setText(stat.title);
 
-        TextView vPlays1 = (TextView) view.findViewById(R.id.statistics_secondary_card_1_plays);
+        TextView vPlays1 = view.findViewById(R.id.statistics_secondary_card_1_plays);
         if(this.stats.isTop()){
             vPlays1.setText(String.valueOf(stat.total_plays));
         }
@@ -159,9 +150,9 @@ public class StatisticsFragment extends Fragment {
             vPlays1.setText(String.valueOf(stat.users_watched));
         }
 
-        NetworkImageView vImage1 = (NetworkImageView) view.findViewById(R.id.statistics_secondary_card_1_image);
-        NetworkImageView vCircleImage1 = (NetworkImageView) view.findViewById(R.id.statistics_secondary_card_1_circle_image);
-        ImageView vSquareImage1 = (ImageView) view.findViewById(R.id.statistics_secondary_card_1_square_image);
+        NetworkImageView vImage1 = view.findViewById(R.id.statistics_secondary_card_1_image);
+        NetworkImageView vCircleImage1 = view.findViewById(R.id.statistics_secondary_card_1_circle_image);
+        ImageView vSquareImage1 = view.findViewById(R.id.statistics_secondary_card_1_square_image);
 
         if(this.stats.isTV()){
             vImage1.setImageUrl(UrlHelpers.getImageUrl(stat.grandparent_thumb, "400", "600"),
@@ -187,10 +178,10 @@ public class StatisticsFragment extends Fragment {
     }
 
     public void setStat2(View view, StatisticsModels.StatisticsRow stat){
-        TextView vTitle2 = (TextView) view.findViewById(R.id.statistics_secondary_card_2_title);
+        TextView vTitle2 = view.findViewById(R.id.statistics_secondary_card_2_title);
         vTitle2.setText(stat.title);
 
-        TextView vPlays2 = (TextView) view.findViewById(R.id.statistics_secondary_card_2_plays);
+        TextView vPlays2 = view.findViewById(R.id.statistics_secondary_card_2_plays);
         if(this.stats.isTop()){
             vPlays2.setText(String.valueOf(stat.total_plays));
         }
@@ -198,9 +189,9 @@ public class StatisticsFragment extends Fragment {
             vPlays2.setText(String.valueOf(stat.users_watched));
         }
 
-        NetworkImageView vImage2 = (NetworkImageView) view.findViewById(R.id.statistics_secondary_card_2_image);
-        NetworkImageView vCircleImage2 = (NetworkImageView) view.findViewById(R.id.statistics_secondary_card_2_circle_image);
-        ImageView vSquareImage2 = (ImageView) view.findViewById(R.id.statistics_secondary_card_2_square_image);
+        NetworkImageView vImage2 = view.findViewById(R.id.statistics_secondary_card_2_image);
+        NetworkImageView vCircleImage2 = view.findViewById(R.id.statistics_secondary_card_2_circle_image);
+        ImageView vSquareImage2 = view.findViewById(R.id.statistics_secondary_card_2_square_image);
 
         if(this.stats.isTV()){
             vImage2.setImageUrl(UrlHelpers.getImageUrl(stat.grandparent_thumb, "400", "600"),
@@ -226,10 +217,10 @@ public class StatisticsFragment extends Fragment {
     }
 
     public void setStat3(View view, StatisticsModels.StatisticsRow stat){
-        TextView vTitle3 = (TextView) view.findViewById(R.id.statistics_secondary_card_3_title);
+        TextView vTitle3 = view.findViewById(R.id.statistics_secondary_card_3_title);
         vTitle3.setText(stat.title);
 
-        TextView vPlays3 = (TextView) view.findViewById(R.id.statistics_secondary_card_3_plays);
+        TextView vPlays3 = view.findViewById(R.id.statistics_secondary_card_3_plays);
         if(this.stats.isTop()){
             vPlays3.setText(String.valueOf(stat.total_plays));
         }
@@ -237,9 +228,9 @@ public class StatisticsFragment extends Fragment {
             vPlays3.setText(String.valueOf(stat.users_watched));
         }
 
-        NetworkImageView vImage3 = (NetworkImageView) view.findViewById(R.id.statistics_secondary_card_3_image);
-        NetworkImageView vCircleImage3 = (NetworkImageView) view.findViewById(R.id.statistics_secondary_card_3_circle_image);
-        ImageView vSquareImage3 = (ImageView) view.findViewById(R.id.statistics_secondary_card_3_square_image);
+        NetworkImageView vImage3 = view.findViewById(R.id.statistics_secondary_card_3_image);
+        NetworkImageView vCircleImage3 = view.findViewById(R.id.statistics_secondary_card_3_circle_image);
+        ImageView vSquareImage3 = view.findViewById(R.id.statistics_secondary_card_3_square_image);
 
         if(this.stats.isTV()){
             vImage3.setImageUrl(UrlHelpers.getImageUrl(stat.grandparent_thumb, "400", "600"),
@@ -265,10 +256,10 @@ public class StatisticsFragment extends Fragment {
     }
 
     public void setStat4(View view, StatisticsModels.StatisticsRow stat){
-        TextView vTitle4 = (TextView) view.findViewById(R.id.statistics_secondary_card_4_title);
+        TextView vTitle4 = view.findViewById(R.id.statistics_secondary_card_4_title);
         vTitle4.setText(stat.title);
 
-        TextView vPlays4 = (TextView) view.findViewById(R.id.statistics_secondary_card_4_plays);
+        TextView vPlays4 = view.findViewById(R.id.statistics_secondary_card_4_plays);
         if(this.stats.isTop()){
             vPlays4.setText(String.valueOf(stat.total_plays));
         }
@@ -276,9 +267,9 @@ public class StatisticsFragment extends Fragment {
             vPlays4.setText(String.valueOf(stat.users_watched));
         }
 
-        NetworkImageView vImage4 = (NetworkImageView) view.findViewById(R.id.statistics_secondary_card_4_image);
-        NetworkImageView vCircleImage4 = (NetworkImageView) view.findViewById(R.id.statistics_secondary_card_4_circle_image);
-        ImageView vSquareImage4 = (ImageView) view.findViewById(R.id.statistics_secondary_card_4_square_image);
+        NetworkImageView vImage4 = view.findViewById(R.id.statistics_secondary_card_4_image);
+        NetworkImageView vCircleImage4 = view.findViewById(R.id.statistics_secondary_card_4_circle_image);
+        ImageView vSquareImage4 = view.findViewById(R.id.statistics_secondary_card_4_square_image);
 
         if(this.stats.isTV()){
             vImage4.setImageUrl(UrlHelpers.getImageUrl(stat.grandparent_thumb, "400", "600"),
