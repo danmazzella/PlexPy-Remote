@@ -14,13 +14,12 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.joanzapata.iconify.widget.IconTextView;
-import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
 import com.williamcomartin.plexpyremote.Helpers.ImageHelper;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
 import com.williamcomartin.plexpyremote.Models.ActivityModels;
-import com.williamcomartin.plexpyremote.Services.PlatformService;
 import com.williamcomartin.plexpyremote.Models.ActivityModels.Activity;
+import com.williamcomartin.plexpyremote.Services.PlatformService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,29 +63,29 @@ public class StreamInfoFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stream_info, container, false);
 
-        vImage = (NetworkImageView) view.findViewById(R.id.activity_stream_thumb);
-        vEta = (TextView) view.findViewById(R.id.activity_stream_eta);
-        vRemaining = (TextView) view.findViewById(R.id.activity_stream_time_remaining);
-        vState = (IconTextView) view.findViewById(R.id.activity_stream_state_icon);
-        vProgress = (ProgressBar) view.findViewById(R.id.activity_stream_progress_bar);
+        vImage = view.findViewById(R.id.activity_stream_thumb);
+        vEta = view.findViewById(R.id.activity_stream_eta);
+        vRemaining = view.findViewById(R.id.activity_stream_time_remaining);
+        vState = view.findViewById(R.id.activity_stream_state_icon);
+        vProgress = view.findViewById(R.id.activity_stream_progress_bar);
 
-        vTitle = (TextView) view.findViewById(R.id.activity_stream_title);
-        vSubtitle = (TextView) view.findViewById(R.id.activity_stream_subtitle);
-        vEpisode = (TextView) view.findViewById(R.id.activity_stream_episode);
+        vTitle = view.findViewById(R.id.activity_stream_title);
+        vSubtitle = view.findViewById(R.id.activity_stream_subtitle);
+        vEpisode = view.findViewById(R.id.activity_stream_episode);
 
-        vUserAvatar = (NetworkImageView) view.findViewById(R.id.activity_stream_user_avatar);
-        vUserName = (TextView) view.findViewById(R.id.activity_stream_user_name);
-        vUserIP = (TextView) view.findViewById(R.id.activity_stream_user_ip);
+        vUserAvatar = view.findViewById(R.id.activity_stream_user_avatar);
+        vUserName = view.findViewById(R.id.activity_stream_user_name);
+        vUserIP = view.findViewById(R.id.activity_stream_user_ip);
 
-        vPlayerAvatar = (ImageView) view.findViewById(R.id.activity_stream_player_avatar);
-        vPlayerName = (TextView) view.findViewById(R.id.activity_stream_player_name);
-        vPlayerPlatform = (TextView) view.findViewById(R.id.activity_stream_player_platform);
+        vPlayerAvatar = view.findViewById(R.id.activity_stream_player_avatar);
+        vPlayerName = view.findViewById(R.id.activity_stream_player_name);
+        vPlayerPlatform = view.findViewById(R.id.activity_stream_player_platform);
 
-        vStreamDecision = (TextView) view.findViewById(R.id.activity_stream_stream_decision);
-        vVideoDecision = (TextView) view.findViewById(R.id.activity_stream_video_decision);
-        vAudioDecision = (TextView) view.findViewById(R.id.activity_stream_audio_decision);
+        vStreamDecision = view.findViewById(R.id.activity_stream_stream_decision);
+        vVideoDecision = view.findViewById(R.id.activity_stream_video_decision);
+        vAudioDecision = view.findViewById(R.id.activity_stream_audio_decision);
 
-        vScroller = (ScrollView) view.findViewById(R.id.activity_stream_scroller);
+        vScroller = view.findViewById(R.id.activity_stream_scroller);
 
         return view;
     }
@@ -105,31 +104,41 @@ public class StreamInfoFragment extends Fragment {
 
         vEta.setText(String.format(getString(R.string.eta), formatDuration(activity.duration, activity.view_offset)));
 
-        vRemaining.setText(formatSeconds(activity.view_offset) + "/" + formatSeconds(activity.duration));
+        String remainingString = formatSeconds(activity.view_offset) + "/" + formatSeconds(activity.duration);
+        vRemaining.setText(remainingString);
 
-        if (activity.state.equals("playing")) {
-            vState.setText("{fa-play}");
-        } else if (activity.state.equals("paused")) {
-            vState.setText("{fa-pause}");
-        } else if (activity.state.equals("buffering")) {
-            vState.setText("{fa-spinner}");
+        switch (activity.state) {
+            case "playing":
+                vState.setText("{fa-play}");
+                break;
+            case "paused":
+                vState.setText("{fa-pause}");
+                break;
+            case "buffering":
+                vState.setText("{fa-spinner}");
+                break;
         }
 
         vProgress.setProgress(Integer.parseInt(activity.progress_percent));
         vProgress.setSecondaryProgress(Integer.parseInt(activity.transcode_progress));
 
-        if (activity.media_type.equals("episode")) {
-            vTitle.setText(activity.grandparent_title);
-            vSubtitle.setText(activity.title);
-            vEpisode.setText("S" + activity.parent_media_index + " • E" + activity.media_index);
-        } else if (activity.media_type.equals("track")) {
-            vTitle.setText(activity.grandparent_title);
-            vSubtitle.setText(activity.title);
-            vEpisode.setText(activity.parent_title);
-        } else {
-            vTitle.setText(activity.title);
-            vSubtitle.setText("");
-            vEpisode.setText(activity.year);
+        switch (activity.media_type) {
+            case "episode":
+                vTitle.setText(activity.grandparent_title);
+                vSubtitle.setText(activity.title);
+                String episodeText = "S" + activity.parent_media_index + " • E" + activity.media_index;
+                vEpisode.setText(episodeText);
+                break;
+            case "track":
+                vTitle.setText(activity.grandparent_title);
+                vSubtitle.setText(activity.title);
+                vEpisode.setText(activity.parent_title);
+                break;
+            default:
+                vTitle.setText(activity.title);
+                vSubtitle.setText("");
+                vEpisode.setText(activity.year);
+                break;
         }
 
         if (vSubtitle.getText().equals("")) {
@@ -141,7 +150,8 @@ public class StreamInfoFragment extends Fragment {
         vUserAvatar.setImageUrl(activity.user_thumb,
                 ImageCacheManager.getInstance().getImageLoader());
         vUserName.setText(activity.friendly_name);
-        vUserIP.setText("IP: " + activity.ip_address);
+        String ipAddress = "IP: " + activity.ip_address;
+        vUserIP.setText(ipAddress);
 
 //            String url = UrlHelpers.getHost() + PlatformService.getInstance().getPlatformImagePath(activity.platform);
         Bitmap platform = BitmapFactory.decodeResource(
@@ -178,16 +188,20 @@ public class StreamInfoFragment extends Fragment {
         String stream = "";
 
         if(activity.media_type.equals("track")){
-            if(activity.audio_decision.equals("direct play")){
-                stream += "Direct Play";
-            } else if (activity.audio_decision.equals("copy")){
-                stream += "Direct Stream";
-            } else {
-                stream += "Transcoding";
-                stream += " (" + activity.transcode_speed + ")";
-                if(activity.throttled.equals("1")){
-                    stream += " (Throttled)";
-                }
+            switch (activity.audio_decision) {
+                case "direct play":
+                    stream += "Direct Play";
+                    break;
+                case "copy":
+                    stream += "Direct Stream";
+                    break;
+                default:
+                    stream += "Transcoding";
+                    stream += " (" + activity.transcode_speed + ")";
+                    if (activity.throttled.equals("1")) {
+                        stream += " (Throttled)";
+                    }
+                    break;
             }
         } else {
             if(activity.audio_decision.equals("direct play") && activity.video_decision.equals("direct play")){
@@ -209,18 +223,22 @@ public class StreamInfoFragment extends Fragment {
     private String buildVideoString(Activity activity) {
         String video = "";
 
-        if(activity.video_decision.equals("direct play")){
-            video += "Direct Play";
-            video += " (" + activity.video_codec + ")";
-            video += " (" + activity.width + "x" + activity.height + ")";
-        } else if (activity.video_decision.equals("copy")){
-            video += "Direct Stream";
-            video += " (" + activity.transcode_video_codec + ")";
-            video += " (" + activity.width + "x" + activity.height + ")";
-        } else {
-            video += "Transcoding";
-            video += " (" + activity.transcode_video_codec + ")";
-            video += " (" + activity.transcode_width + "x" + activity.transcode_height + ")";
+        switch (activity.video_decision) {
+            case "direct play":
+                video += "Direct Play";
+                video += " (" + activity.video_codec + ")";
+                video += " (" + activity.width + "x" + activity.height + ")";
+                break;
+            case "copy":
+                video += "Direct Stream";
+                video += " (" + activity.transcode_video_codec + ")";
+                video += " (" + activity.width + "x" + activity.height + ")";
+                break;
+            default:
+                video += "Transcoding";
+                video += " (" + activity.transcode_video_codec + ")";
+                video += " (" + activity.transcode_width + "x" + activity.transcode_height + ")";
+                break;
         }
 
         return video;
@@ -229,18 +247,22 @@ public class StreamInfoFragment extends Fragment {
     private String buildAudioString(Activity activity) {
         String audio = "";
 
-        if(activity.audio_decision.equals("direct play")){
-            audio += "Direct Play";
-            audio += " (" + activity.audio_codec + ")";
-            audio += " (" + activity.audio_channels + " ch)";
-        } else if (activity.audio_decision.equals("copy")){
-            audio += "Direct Stream";
-            audio += " (" + activity.transcode_audio_codec + ")";
-            audio += " (" + activity.transcode_audio_channels + " ch)";
-        } else {
-            audio += "Transcoding";
-            audio += " (" + activity.transcode_audio_codec + ")";
-            audio += " (" + activity.transcode_audio_channels + " ch)";
+        switch (activity.audio_decision) {
+            case "direct play":
+                audio += "Direct Play";
+                audio += " (" + activity.audio_codec + ")";
+                audio += " (" + activity.audio_channels + " ch)";
+                break;
+            case "copy":
+                audio += "Direct Stream";
+                audio += " (" + activity.transcode_audio_codec + ")";
+                audio += " (" + activity.transcode_audio_channels + " ch)";
+                break;
+            default:
+                audio += "Transcoding";
+                audio += " (" + activity.transcode_audio_codec + ")";
+                audio += " (" + activity.transcode_audio_channels + " ch)";
+                break;
         }
 
         return audio;
