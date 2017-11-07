@@ -1,6 +1,7 @@
 package com.williamcomartin.plexpyremote.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Icon;
@@ -21,6 +22,8 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
+import com.williamcomartin.plexpyremote.MediaActivities.Episode.EpisodeActivity;
+import com.williamcomartin.plexpyremote.MediaActivities.Movie.MovieActivity;
 import com.williamcomartin.plexpyremote.Models.ActivityModels;
 import com.williamcomartin.plexpyremote.Models.HistoryModels;
 import com.williamcomartin.plexpyremote.R;
@@ -35,7 +38,6 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("DefaultFileTemplate")
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final CardView vCard;
@@ -119,6 +121,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         if(historyItem.detailsOpen == null) historyItem.detailsOpen = false;
         toggleDetailsView(viewHolder, historyItem.detailsOpen);
+
         viewHolder.vCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -147,9 +150,33 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                 case "episode":
                     String episodeText = "S" + historyItem.parentMediaIndex + " • E" + historyItem.mediaIndex;
                     viewHolder.vEpisode.setText(episodeText);
+
+                    viewHolder.vCard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent;
+                            intent = new Intent(context, EpisodeActivity.class);
+                            intent.putExtra("RatingKey", String.valueOf(historyItem.ratingKey));
+                            intent.putExtra("Title", historyItem.parentTitle);
+
+                            context.startActivity(intent);
+                        }
+                    });
                     break;
                 case "movie":
                     viewHolder.vEpisode.setText(String.valueOf(historyItem.year));
+
+                    viewHolder.vCard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent;
+                            intent = new Intent(context, MovieActivity.class);
+                            intent.putExtra("RatingKey", String.valueOf(historyItem.ratingKey));
+                            intent.putExtra("Title", historyItem.fullTitle);
+
+                            context.startActivity(intent);
+                        }
+                    });
                     break;
             }
         }

@@ -26,7 +26,7 @@ public class MovieActivity extends NavBaseActivity {
     }
 
     @Override
-    protected void setupDrawer(){
+    protected void setupDrawer() {
         super.setupDrawer();
         pageHasDrawer = false;
         mDrawerToggle.setDrawerIndicatorEnabled(false);
