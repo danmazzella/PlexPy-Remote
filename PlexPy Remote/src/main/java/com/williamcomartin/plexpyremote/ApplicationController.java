@@ -16,6 +16,7 @@ import java.net.URL;
 /**
  * Created by wcomartin on 2015-11-29.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class ApplicationController extends Application {
 
     private static ApplicationController mInstance;
