@@ -2,10 +2,6 @@ package com.williamcomartin.plexpyremote.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,24 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
-import com.williamcomartin.plexpyremote.AboutActivity;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
 import com.williamcomartin.plexpyremote.LibraryDetailsActivity;
 import com.williamcomartin.plexpyremote.Models.LibraryStatisticsModels;
 import com.williamcomartin.plexpyremote.R;
-import com.williamcomartin.plexpyremote.StreamInfoFragment;
 
 import java.util.List;
 
 /**
  * Created by wcomartin on 2015-12-03.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class LibraryStatisticsAdapter extends RecyclerView.Adapter<LibraryStatisticsAdapter.ViewHolder> {
-
-
-    private SharedPreferences SP;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -48,15 +39,15 @@ public class LibraryStatisticsAdapter extends RecyclerView.Adapter<LibraryStatis
         public ViewHolder(View itemView) {
             super(itemView);
 
-            vCard = (CardView) itemView.findViewById(R.id.recently_added_card_view);
-            vTitle = (TextView) itemView.findViewById(R.id.library_statistics_card_title);
-            vCountTitle = (TextView) itemView.findViewById(R.id.library_statistics_card_count_title);
-            vCount = (TextView) itemView.findViewById(R.id.library_statistics_card_count);
-            vChildCountTitle = (TextView) itemView.findViewById(R.id.library_statistics_card_child_count_title);
-            vChildCount = (TextView) itemView.findViewById(R.id.library_statistics_card_child_count);
-            vImage = (NetworkImageView) itemView.findViewById(R.id.library_statistics_card_image);
+            vCard = itemView.findViewById(R.id.recently_added_card_view);
+            vTitle = itemView.findViewById(R.id.library_statistics_card_title);
+            vCountTitle = itemView.findViewById(R.id.library_statistics_card_count_title);
+            vCount = itemView.findViewById(R.id.library_statistics_card_count);
+            vChildCountTitle = itemView.findViewById(R.id.library_statistics_card_child_count_title);
+            vChildCount = itemView.findViewById(R.id.library_statistics_card_child_count);
+            vImage = itemView.findViewById(R.id.library_statistics_card_image);
 
-            vEpisodeLayout = (LinearLayout) itemView.findViewById(R.id.library_statistics_card_child);
+            vEpisodeLayout = itemView.findViewById(R.id.library_statistics_card_child);
 
         }
     }
@@ -68,7 +59,6 @@ public class LibraryStatisticsAdapter extends RecyclerView.Adapter<LibraryStatis
     public LibraryStatisticsAdapter(Context context, List<LibraryStatisticsModels.LibraryStat> libraryStatisticsItem) {
         this.context = context;
         this.libraryStatisticsItem = libraryStatisticsItem;
-        SP = PreferenceManager.getDefaultSharedPreferences(ApplicationController.getInstance().getApplicationContext());
     }
 
     @Override
@@ -80,8 +70,7 @@ public class LibraryStatisticsAdapter extends RecyclerView.Adapter<LibraryStatis
         View contactView = inflater.inflate(R.layout.item_library_statistics, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
@@ -102,19 +91,23 @@ public class LibraryStatisticsAdapter extends RecyclerView.Adapter<LibraryStatis
         // Set item views based on the data model
         viewHolder.vTitle.setText(item.sectionName);
         viewHolder.vCount.setText(item.count);
-        if(item.sectionType.equals("artist")){
-            viewHolder.vCountTitle.setText("Artists");
-            viewHolder.vChildCountTitle.setText("Albums");
-            viewHolder.vEpisodeLayout.setVisibility(LinearLayout.VISIBLE);
-            viewHolder.vChildCount.setText(item.parentCount);
-        } else if(item.sectionType.equals("movie")){
-            viewHolder.vCountTitle.setText("Movies");
-            viewHolder.vEpisodeLayout.setVisibility(LinearLayout.GONE);
-        } else if(item.sectionType.equals("show")){
-            viewHolder.vCountTitle.setText("Shows");
-            viewHolder.vChildCountTitle.setText("Episodes");
-            viewHolder.vEpisodeLayout.setVisibility(LinearLayout.VISIBLE);
-            viewHolder.vChildCount.setText(item.childCount);
+        switch (item.sectionType) {
+            case "artist":
+                viewHolder.vCountTitle.setText("Artists");
+                viewHolder.vChildCountTitle.setText("Albums");
+                viewHolder.vEpisodeLayout.setVisibility(LinearLayout.VISIBLE);
+                viewHolder.vChildCount.setText(item.parentCount);
+                break;
+            case "movie":
+                viewHolder.vCountTitle.setText("Movies");
+                viewHolder.vEpisodeLayout.setVisibility(LinearLayout.GONE);
+                break;
+            case "show":
+                viewHolder.vCountTitle.setText("Shows");
+                viewHolder.vChildCountTitle.setText("Episodes");
+                viewHolder.vEpisodeLayout.setVisibility(LinearLayout.VISIBLE);
+                viewHolder.vChildCount.setText(item.childCount);
+                break;
         }
 
         viewHolder.vImage.setImageUrl(UrlHelpers.getImageUrl(item.thumb, "400", "400", "cover"),
