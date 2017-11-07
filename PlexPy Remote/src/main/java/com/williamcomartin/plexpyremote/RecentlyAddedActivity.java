@@ -1,10 +1,8 @@
 package com.williamcomartin.plexpyremote;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,8 +13,8 @@ import com.android.volley.VolleyError;
 import com.williamcomartin.plexpyremote.Adapters.RecentlyAddedAdapter;
 import com.williamcomartin.plexpyremote.Helpers.EndlessScrollListener;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
+import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
 import com.williamcomartin.plexpyremote.Models.RecentlyAddedModels;
 
@@ -24,10 +22,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 public class RecentlyAddedActivity extends NavBaseActivity {
-
-    private RecyclerView rvActivities;
-
-    private SharedPreferences SP;
 
     private RecentlyAddedAdapter adapter;
 
@@ -37,9 +31,7 @@ public class RecentlyAddedActivity extends NavBaseActivity {
         setContentView(R.layout.activity_recently_added);
         setupActionBar();
 
-        SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        rvActivities = (RecyclerView) findViewById(R.id.rvRecentlyAdded);
+        RecyclerView rvActivities = findViewById(R.id.rvRecentlyAdded);
         adapter = new RecentlyAddedAdapter(new ArrayList<RecentlyAddedModels.RecentItem>());
         rvActivities.setAdapter(adapter);
 
@@ -67,7 +59,7 @@ public class RecentlyAddedActivity extends NavBaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvActivities.setLayoutManager(linearLayoutManager);
 
-        rvActivities.setOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
+        rvActivities.addOnScrollListener(new EndlessScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 try {
@@ -116,7 +108,7 @@ public class RecentlyAddedActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.recently_added);
+        if (actionBar != null) actionBar.setTitle(R.string.recently_added);
     }
 
     @Override
