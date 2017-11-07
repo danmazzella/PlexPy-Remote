@@ -1,8 +1,6 @@
 package com.williamcomartin.plexpyremote.Adapters.WatchStatistics;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
 import com.williamcomartin.plexpyremote.Models.StatisticsModels;
@@ -21,9 +18,8 @@ import java.util.List;
 /**
  * Created by wcomartin on 16-05-20.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class MostWatchedMovieAdapter extends RecyclerView.Adapter<MostWatchedMovieAdapter.ViewHolder> {
-
-    private final SharedPreferences SP;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -36,11 +32,11 @@ public class MostWatchedMovieAdapter extends RecyclerView.Adapter<MostWatchedMov
         public ViewHolder(View itemView) {
             super(itemView);
 
-            vImage = (NetworkImageView) itemView.findViewById(R.id.standard_statistics_card_image);
-            vBadge = (TextView) itemView.findViewById(R.id.standard_statistics_card_badge);
-            vTitle = (TextView) itemView.findViewById(R.id.standard_statistics_card_title);
-            vQuantity = (TextView) itemView.findViewById(R.id.standard_statistics_card_quantity);
-            vQuantifier = (TextView) itemView.findViewById(R.id.standard_statistics_card_quantifier);
+            vImage = itemView.findViewById(R.id.standard_statistics_card_image);
+            vBadge = itemView.findViewById(R.id.standard_statistics_card_badge);
+            vTitle = itemView.findViewById(R.id.standard_statistics_card_title);
+            vQuantity = itemView.findViewById(R.id.standard_statistics_card_quantity);
+            vQuantifier = itemView.findViewById(R.id.standard_statistics_card_quantifier);
         }
     }
 
@@ -49,7 +45,6 @@ public class MostWatchedMovieAdapter extends RecyclerView.Adapter<MostWatchedMov
     // Pass in the contact array into the constructor
     public MostWatchedMovieAdapter(List<StatisticsModels.StatisticsRow> statisticsItems) {
         this.statisticsItems = statisticsItems;
-        SP = PreferenceManager.getDefaultSharedPreferences(ApplicationController.getInstance().getApplicationContext());
     }
 
     @Override

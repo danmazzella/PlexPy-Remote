@@ -21,6 +21,7 @@ import java.util.List;
 /**
  * Created by wcomartin on 16-05-20.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class MostActivePlatformAdapter extends RecyclerView.Adapter<MostActivePlatformAdapter.ViewHolder> {
 
     private final SharedPreferences SP;
@@ -36,11 +37,11 @@ public class MostActivePlatformAdapter extends RecyclerView.Adapter<MostActivePl
         public ViewHolder(View itemView) {
             super(itemView);
 
-            vImage = (NetworkImageView) itemView.findViewById(R.id.standard_statistics_card_image);
-            vBadge = (TextView) itemView.findViewById(R.id.standard_statistics_card_badge);
-            vTitle = (TextView) itemView.findViewById(R.id.standard_statistics_card_title);
-            vQuantity = (TextView) itemView.findViewById(R.id.standard_statistics_card_quantity);
-            vQuantifier = (TextView) itemView.findViewById(R.id.standard_statistics_card_quantifier);
+            vImage = itemView.findViewById(R.id.standard_statistics_card_image);
+            vBadge = itemView.findViewById(R.id.standard_statistics_card_badge);
+            vTitle = itemView.findViewById(R.id.standard_statistics_card_title);
+            vQuantity = itemView.findViewById(R.id.standard_statistics_card_quantity);
+            vQuantifier = itemView.findViewById(R.id.standard_statistics_card_quantifier);
         }
     }
 
