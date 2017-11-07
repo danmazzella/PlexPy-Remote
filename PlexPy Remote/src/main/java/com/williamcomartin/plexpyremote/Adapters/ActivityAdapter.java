@@ -1,15 +1,10 @@
 package com.williamcomartin.plexpyremote.Adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +12,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.internal.util.Predicate;
 import com.android.volley.toolbox.NetworkImageView;
-import com.joanzapata.iconify.IconDrawable;
-import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.williamcomartin.plexpyremote.ActivityActivity;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
 import com.williamcomartin.plexpyremote.Models.ActivityModels.Activity;
 import com.williamcomartin.plexpyremote.R;
 import com.williamcomartin.plexpyremote.StreamInfoFragment;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,53 +29,51 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by wcomartin on 2015-11-25.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHolder> {
 
-    private Context context;
     private FragmentManager fragmentManager;
-    View itemView;
-    private SharedPreferences SP;
     private ActivityActivity mActivity;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        protected IconTextView vInfoIcon;
+        IconTextView vInfoIcon;
 
         protected TextView vTitle;
-        protected TextView vSubTitle;
-        protected TextView vEpisode;
+        TextView vSubTitle;
+        TextView vEpisode;
 
-        protected TextView vStateIcon;
-        protected TextView vUserText;
-        protected TextView vDecisionText;
-        protected TextView vProgressText;
+        TextView vStateIcon;
+        TextView vUserText;
+        TextView vDecisionText;
+        TextView vProgressText;
 
-        protected ProgressBar vprogress;
+        ProgressBar vprogress;
 
-        protected NetworkImageView vBackgroundImage;
+        NetworkImageView vBackgroundImage;
         protected NetworkImageView vImage;
-        protected NetworkImageView vImageBlurred;
+        NetworkImageView vImageBlurred;
 
         public ViewHolder(final View itemView) {
             super(itemView);
 
-            vInfoIcon = (IconTextView) itemView.findViewById(R.id.activity_card_info_icon);
+            vInfoIcon = itemView.findViewById(R.id.activity_card_info_icon);
 
 
-            vTitle = (TextView) itemView.findViewById(R.id.activity_card_title);
-            vSubTitle = (TextView) itemView.findViewById(R.id.activity_card_subtitle);
-            vEpisode = (TextView) itemView.findViewById(R.id.activity_card_muted_title);
+            vTitle = itemView.findViewById(R.id.activity_card_title);
+            vSubTitle = itemView.findViewById(R.id.activity_card_subtitle);
+            vEpisode = itemView.findViewById(R.id.activity_card_muted_title);
 
-            vStateIcon = (TextView) itemView.findViewById(R.id.activity_card_state_icon);
-            vUserText = (TextView) itemView.findViewById(R.id.activity_card_user_text);
-            vDecisionText = (TextView) itemView.findViewById(R.id.activity_card_decision_text);
-            vProgressText = (TextView) itemView.findViewById(R.id.activity_card_progress_text);
+            vStateIcon = itemView.findViewById(R.id.activity_card_state_icon);
+            vUserText = itemView.findViewById(R.id.activity_card_user_text);
+            vDecisionText = itemView.findViewById(R.id.activity_card_decision_text);
+            vProgressText = itemView.findViewById(R.id.activity_card_progress_text);
 
-            vprogress = (ProgressBar) itemView.findViewById(R.id.progressbar);
+            vprogress = itemView.findViewById(R.id.progressbar);
 
-            vBackgroundImage = (NetworkImageView) itemView.findViewById(R.id.activity_card_background_art);
-            vImage = (NetworkImageView) itemView.findViewById(R.id.activity_card_image);
-            vImageBlurred = (NetworkImageView) itemView.findViewById(R.id.activity_card_image_blurred);
+            vBackgroundImage = itemView.findViewById(R.id.activity_card_background_art);
+            vImage = itemView.findViewById(R.id.activity_card_image);
+            vImageBlurred = itemView.findViewById(R.id.activity_card_image_blurred);
 
         }
     }
@@ -94,7 +81,6 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
     private List<Activity> activities;
 
     public ActivityAdapter(Context context, FragmentManager fragmentManager) {
-        this.context = context;
         this.fragmentManager = fragmentManager;
         this.activities = new ArrayList<>();
     }
@@ -122,11 +108,10 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        itemView = inflater.inflate(R.layout.item_activity, parent, false);
+        View itemView = inflater.inflate(R.layout.item_activity, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(itemView);
-        return viewHolder;
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -134,7 +119,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
 //        Context context = ApplicationController.getInstance().getApplicationContext();
         // Get the data model based on position
         final Activity activity = activities.get(position);
-        final DrawerLayout drawerLayout = (DrawerLayout) mActivity.findViewById(R.id.activity_drawer);
+        final DrawerLayout drawerLayout = mActivity.findViewById(R.id.activity_drawer);
         final StreamInfoFragment frag = (StreamInfoFragment) fragmentManager.findFragmentById(R.id.activity_stream_info_fragment);
         if (drawerLayout.isDrawerOpen(GravityCompat.END)
                 && frag.getSessionKey() == Integer.parseInt(activity.session_key)) {
@@ -152,47 +137,61 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ViewHo
         // Set item views based on the data model
         String imageUrl;
 
-        if (activity.media_type.equals("episode")) {
-            viewHolder.vTitle.setText(activity.grandparent_title);
-            viewHolder.vSubTitle.setText(activity.title);
-            viewHolder.vEpisode.setText("S" + activity.parent_media_index + " • E" + activity.media_index);
-            imageUrl = UrlHelpers.getImageUrl(activity.grandparent_thumb, "600", "400");
-            viewHolder.vImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        } else if (activity.media_type.equals("track")) {
-            viewHolder.vTitle.setText(activity.grandparent_title);
-            viewHolder.vSubTitle.setText(activity.title);
-            viewHolder.vEpisode.setText(activity.parent_title);
-            imageUrl = UrlHelpers.getImageUrl(activity.thumb, "600", "400");
-        } else {
-            viewHolder.vTitle.setText(activity.title);
-            viewHolder.vEpisode.setText(activity.year);
-            imageUrl = UrlHelpers.getImageUrl(activity.thumb, "600", "400");
-            viewHolder.vImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        switch (activity.media_type) {
+            case "episode":
+                viewHolder.vTitle.setText(activity.grandparent_title);
+                viewHolder.vSubTitle.setText(activity.title);
+                String episodeString = "S" + activity.parent_media_index + " • E" + activity.media_index;
+                viewHolder.vEpisode.setText(episodeString);
+                imageUrl = UrlHelpers.getImageUrl(activity.grandparent_thumb, "600", "400");
+                viewHolder.vImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                break;
+            case "track":
+                viewHolder.vTitle.setText(activity.grandparent_title);
+                viewHolder.vSubTitle.setText(activity.title);
+                viewHolder.vEpisode.setText(activity.parent_title);
+                imageUrl = UrlHelpers.getImageUrl(activity.thumb, "600", "400");
+                break;
+            default:
+                viewHolder.vTitle.setText(activity.title);
+                viewHolder.vEpisode.setText(activity.year);
+                imageUrl = UrlHelpers.getImageUrl(activity.thumb, "600", "400");
+                viewHolder.vImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                break;
         }
 
         if (viewHolder.vSubTitle.getText().equals("")) {
             viewHolder.vSubTitle.setVisibility(View.GONE);
         }
 
-        if (activity.state.equals("playing")) {
-            viewHolder.vStateIcon.setText("{fa-play}");
-        } else if (activity.state.equals("paused")) {
-            viewHolder.vStateIcon.setText("{fa-pause}");
-        } else if (activity.state.equals("buffering")) {
-            viewHolder.vStateIcon.setText("{fa-spinner}");
+        switch (activity.state) {
+            case "playing":
+                viewHolder.vStateIcon.setText("{fa-play}");
+                break;
+            case "paused":
+                viewHolder.vStateIcon.setText("{fa-pause}");
+                break;
+            case "buffering":
+                viewHolder.vStateIcon.setText("{fa-spinner}");
+                break;
         }
 
         viewHolder.vUserText.setText(activity.friendly_name);
 
-        if (activity.video_decision.equals("direct play")) {
-            viewHolder.vDecisionText.setText("Direct Play");
-        } else if (activity.video_decision.equals("copy")) {
-            viewHolder.vDecisionText.setText("Direct Stream");
-        } else {
-            viewHolder.vDecisionText.setText("Transcoding");
+        switch (activity.video_decision) {
+            case "direct play":
+                viewHolder.vDecisionText.setText("Direct Play");
+                break;
+            case "copy":
+                viewHolder.vDecisionText.setText("Direct Stream");
+                break;
+            default:
+                viewHolder.vDecisionText.setText("Transcoding");
+                break;
         }
 
-        viewHolder.vProgressText.setText(formatSeconds(activity.view_offset) + "/" + formatSeconds(activity.duration));
+        String progressText = formatSeconds(activity.view_offset) + "/" + formatSeconds(activity.duration);
+        viewHolder.vProgressText.setText(progressText);
 
         viewHolder.vprogress.setProgress(Integer.parseInt(activity.progress_percent));
         viewHolder.vprogress.setSecondaryProgress(Integer.parseInt(activity.transcode_progress));
