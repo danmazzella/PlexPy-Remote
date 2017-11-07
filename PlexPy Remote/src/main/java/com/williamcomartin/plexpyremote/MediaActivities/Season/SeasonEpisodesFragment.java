@@ -1,6 +1,6 @@
 package com.williamcomartin.plexpyremote.MediaActivities.Season;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -26,12 +26,10 @@ import java.util.ArrayList;
 /**
  * Created by wcomartin on 2016-12-14.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class SeasonEpisodesFragment extends Fragment {
-    private View view;
     private String ratingKey;
 
-    private GridView vEpisodesGrid;
     private SeasonEpisodesGridAdapter gridAdapter;
     private String parentTitle;
 
@@ -46,11 +44,11 @@ public class SeasonEpisodesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_season_episodes, container, false);
+        View view = inflater.inflate(R.layout.fragment_season_episodes, container, false);
 
         gridAdapter = new SeasonEpisodesGridAdapter(this.getContext(), new ArrayList<LibraryMediaModels.LibraryMediaItem>());
 
-        vEpisodesGrid = (GridView) view.findViewById(R.id.show_episodes_grid);
+        GridView vEpisodesGrid = view.findViewById(R.id.show_episodes_grid);
         vEpisodesGrid.setAdapter(gridAdapter);
 
         fetchProfile();
@@ -59,10 +57,12 @@ public class SeasonEpisodesFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ActionBar actionBar = ((NavBaseActivity)activity).getSupportActionBar();
-        parentTitle = String.valueOf(actionBar.getTitle());
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ActionBar actionBar = ((NavBaseActivity) context).getSupportActionBar();
+        if (actionBar != null) {
+            parentTitle = String.valueOf(actionBar.getTitle());
+        }
     }
 
     public void setRatingKey(String ratingKey) {

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by wcomartin on 2016-12-15.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class SeasonEpisodesGridAdapter extends BaseAdapter {
     private Context context;
     private List<LibraryMediaModels.LibraryMediaItem> episodes;
@@ -33,28 +33,28 @@ public class SeasonEpisodesGridAdapter extends BaseAdapter {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        protected CardView vCard;
-        protected RelativeLayout vLayout;
+        CardView vCard;
+        RelativeLayout vLayout;
         protected NetworkImageView vImage;
         protected TextView vTitle;
-        protected TextView vNumber;
+        TextView vNumber;
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            vCard = (CardView) itemView.findViewById(R.id.show_episodes_card);
-            vLayout = (RelativeLayout) itemView.findViewById(R.id.show_episodes_card_layout);
-            vImage = (NetworkImageView) itemView.findViewById(R.id.show_episodes_image);
-            vTitle = (TextView) itemView.findViewById(R.id.show_episodes_title);
-            vNumber = (TextView) itemView.findViewById(R.id.show_episodes_number);
+            vCard = itemView.findViewById(R.id.show_episodes_card);
+            vLayout = itemView.findViewById(R.id.show_episodes_card_layout);
+            vImage = itemView.findViewById(R.id.show_episodes_image);
+            vTitle = itemView.findViewById(R.id.show_episodes_title);
+            vNumber = itemView.findViewById(R.id.show_episodes_number);
         }
     }
 
-    public SeasonEpisodesGridAdapter(Context context, List<LibraryMediaModels.LibraryMediaItem> episodes) {
+    SeasonEpisodesGridAdapter(Context context, List<LibraryMediaModels.LibraryMediaItem> episodes) {
         this.context = context;
         setEpisodes(episodes);
     }
 
-    public void setEpisodes(final List<LibraryMediaModels.LibraryMediaItem> episodes) {
+    void setEpisodes(final List<LibraryMediaModels.LibraryMediaItem> episodes) {
         if(episodes == null) return;
         Collections.sort(episodes, new Comparator<LibraryMediaModels.LibraryMediaItem>() {
             public int compare(LibraryMediaModels.LibraryMediaItem v1, LibraryMediaModels.LibraryMediaItem v2) {
@@ -95,7 +95,7 @@ public class SeasonEpisodesGridAdapter extends BaseAdapter {
         viewHolder.vCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = null;
+                Intent intent;
                 intent = new Intent(context, EpisodeActivity.class);
                 intent.putExtra("RatingKey", episode.ratingKey);
                 intent.putExtra("Title", parentTitle);
