@@ -29,14 +29,14 @@ public class StatisticsActivity extends NavBaseActivity {
 
         setupActionBar();
 
-        linearLayout = (LinearLayout) findViewById(R.id.statistics_linear_layout);
+        linearLayout = findViewById(R.id.statistics_linear_layout);
 
         fetchStatistics();
     }
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.statistics);
+        if (actionBar != null) actionBar.setTitle(R.string.statistics);
     }
 
     private void fetchStatistics() {
