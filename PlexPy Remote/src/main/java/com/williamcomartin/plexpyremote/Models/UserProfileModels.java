@@ -1,4 +1,4 @@
-package com.williamcomartin.plexpyremote.UserActivities;
+package com.williamcomartin.plexpyremote.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
