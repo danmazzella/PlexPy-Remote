@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.williamcomartin.plexpyremote.Adapters.PlayerStatsRecyclerViewAdapter;
 import com.williamcomartin.plexpyremote.Models.UserPlayerStatsModels;
 import com.williamcomartin.plexpyremote.R;
 
