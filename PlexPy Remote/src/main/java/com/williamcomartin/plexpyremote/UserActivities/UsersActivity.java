@@ -1,9 +1,7 @@
 package com.williamcomartin.plexpyremote.UserActivities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,8 +13,8 @@ import com.android.volley.VolleyError;
 import com.williamcomartin.plexpyremote.ActivityActivity;
 import com.williamcomartin.plexpyremote.Adapters.UserAdapter;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
+import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
 import com.williamcomartin.plexpyremote.Models.UserModels;
 import com.williamcomartin.plexpyremote.NavBaseActivity;
@@ -26,7 +24,6 @@ import java.net.MalformedURLException;
 
 public class UsersActivity extends NavBaseActivity {
 
-    private SharedPreferences SP;
     private RecyclerView rvUsers;
 
     @Override
@@ -35,9 +32,7 @@ public class UsersActivity extends NavBaseActivity {
         setContentView(R.layout.activity_users);
         setupActionBar();
 
-        SP = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        rvUsers = (RecyclerView) findViewById(R.id.rvUsers);
+        rvUsers = findViewById(R.id.rvUsers);
 
         try {
             String url = UrlHelpers.getHostPlusAPIKey() + "&cmd=get_users_table&length=10000000";
@@ -89,7 +84,7 @@ public class UsersActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.users);
+        if (actionBar != null) actionBar.setTitle(R.string.users);
     }
 
     @Override
