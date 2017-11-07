@@ -6,13 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,22 +22,20 @@ import com.williamcomartin.plexpyremote.Adapters.ActivityAdapter;
 import com.williamcomartin.plexpyremote.Helpers.EmptyRecyclerView;
 import com.williamcomartin.plexpyremote.Helpers.ErrorListener;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
+import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
 import com.williamcomartin.plexpyremote.Models.ActivityModels;
 import com.williamcomartin.plexpyremote.Services.NavService;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import java.util.ArrayList;
 
 public class ActivityActivity extends NavBaseActivity {
 
     private final Context context = this;
-    private EmptyRecyclerView rvActivities;
     private ActivityAdapter adapter;
     private SharedPreferences SP;
     private Timer myTimer;
@@ -63,7 +60,7 @@ public class ActivityActivity extends NavBaseActivity {
         setIcons();
         setupActionBar();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.activity_drawer);
+        mDrawerLayout = findViewById(R.id.activity_drawer);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -87,14 +84,14 @@ public class ActivityActivity extends NavBaseActivity {
             }
         });
 
-        rvActivities = (EmptyRecyclerView) findViewById(R.id.rvActivities);
+        EmptyRecyclerView rvActivities = findViewById(R.id.rvActivities);
         rvActivities.setEmptyView(findViewById(R.id.emptyRvActivities));
         adapter = new ActivityAdapter(this, getSupportFragmentManager());
         adapter.setActivityView(this);
         rvActivities.setAdapter(adapter);
         rvActivities.setLayoutManager(new LinearLayoutManager(this));
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayoutActivities);
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayoutActivities);
         mSwipeRefreshLayout.setOnRefreshListener(refreshListener);
 
         mSwipeRefreshLayout.setRefreshing(true);
@@ -184,7 +181,7 @@ public class ActivityActivity extends NavBaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView text = (TextView) findViewById(R.id.emptyTextView);
+                        TextView text = findViewById(R.id.emptyTextView);
                         text.setText(getString(R.string.InvalidServer));
                         text.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
                         findViewById(R.id.oopsView).setVisibility(View.VISIBLE);
@@ -210,7 +207,7 @@ public class ActivityActivity extends NavBaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 super.onErrorResponse(error);
-                TextView text = (TextView) findViewById(R.id.emptyTextView);
+                TextView text = findViewById(R.id.emptyTextView);
                 if (error.getMessage() != null) {
                     if (error.getMessage().contains("No address associated with hostname")) {
                         text.setText(getString(R.string.InvalidServer));
@@ -225,7 +222,8 @@ public class ActivityActivity extends NavBaseActivity {
                     } else if (error.getMessage().contains("Bad URL")) {
                         text.setText(getString(R.string.FormatError));
                     } else {
-                        text.setText(getString(R.string.UnexpectedError) + ", " + error.getMessage());
+                        final String errorMsg = getString(R.string.UnexpectedError) + ", " + error.getMessage();
+                        text.setText(errorMsg);
                     }
                 } else {
                     text.setText(getString(R.string.InvalidTimeoutServer));
@@ -244,7 +242,7 @@ public class ActivityActivity extends NavBaseActivity {
             public void onResponse(ActivityModels response) {
                 if (response.response.data.sessions != null) {
                     if (response.response.data.sessions.isEmpty()) {
-                        TextView text = (TextView) findViewById(R.id.emptyTextView);
+                        TextView text = findViewById(R.id.emptyTextView);
                         text.setText(getString(R.string.NoActivity));
                         text.setTextColor(ContextCompat.getColor(context, R.color.colorTextPrimary));
                         findViewById(R.id.oopsView).setVisibility(View.GONE);
@@ -252,18 +250,18 @@ public class ActivityActivity extends NavBaseActivity {
                     }
                     adapter.SetActivities(response.response.data.sessions);
                 } else if (response.response.result.equals("error")) {
-                    TextView text = (TextView) findViewById(R.id.emptyTextView);
+                    TextView text = findViewById(R.id.emptyTextView);
                     text.setText(getString(R.string.PlexError));
                     text.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
                     findViewById(R.id.oopsView).setVisibility(View.VISIBLE);
                 } else if (response.response.message.equals("Invalid apikey")) {
-                    TextView text = (TextView) findViewById(R.id.emptyTextView);
+                    TextView text = findViewById(R.id.emptyTextView);
                     text.setText(getString(R.string.InvalidAPIKey));
                     text.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
                     findViewById(R.id.oopsView).setVisibility(View.VISIBLE);
                     adapter.SetActivities(new ArrayList<ActivityModels.Activity>());
                 } else {
-                    TextView text = (TextView) findViewById(R.id.emptyTextView);
+                    TextView text = findViewById(R.id.emptyTextView);
                     text.setText(getString(R.string.NoActivity));
                     findViewById(R.id.oopsView).setVisibility(View.GONE);
                     adapter.SetActivities(new ArrayList<ActivityModels.Activity>());
@@ -276,7 +274,7 @@ public class ActivityActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.activity);
+        if (actionBar != null) actionBar.setTitle(R.string.activity);
     }
 
     @Override
@@ -304,7 +302,6 @@ public class ActivityActivity extends NavBaseActivity {
             }, 2000);
         } else {
             super.onBackPressed();
-            return;
         }
     }
 }
