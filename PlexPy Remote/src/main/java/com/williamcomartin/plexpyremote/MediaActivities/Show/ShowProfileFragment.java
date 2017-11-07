@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +17,9 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
+import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
 import com.williamcomartin.plexpyremote.R;
@@ -31,10 +29,9 @@ import java.net.MalformedURLException;
 /**
  * Created by wcomartin on 2016-12-14.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class ShowProfileFragment extends Fragment {
 
-    private View view;
     private String ratingKey;
 
     private NetworkImageView vImage;
@@ -61,21 +58,21 @@ public class ShowProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_show_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_profile, container, false);
 
         context = this.getContext();
 
-        vImage = (NetworkImageView) view.findViewById(R.id.show_profile_image);
-        vStudio = (TextView) view.findViewById(R.id.show_profile_studio);
-        vAired = (TextView) view.findViewById(R.id.show_profile_aired);
-        vRuntime = (TextView) view.findViewById(R.id.show_profile_runtime);
-        vRated = (TextView) view.findViewById(R.id.show_profile_rated);
-        vRating = (RatingBar) view.findViewById(R.id.show_profile_rating);
+        vImage = view.findViewById(R.id.show_profile_image);
+        vStudio = view.findViewById(R.id.show_profile_studio);
+        vAired = view.findViewById(R.id.show_profile_aired);
+        vRuntime = view.findViewById(R.id.show_profile_runtime);
+        vRated = view.findViewById(R.id.show_profile_rated);
+        vRating = view.findViewById(R.id.show_profile_rating);
 
-        vDescription = (TextView) view.findViewById(R.id.show_profile_description);
+        vDescription = view.findViewById(R.id.show_profile_description);
 
-        vStarring = (LinearLayout) view.findViewById(R.id.show_profile_starring);
-        vGenres = (LinearLayout) view.findViewById(R.id.show_profile_genres);
+        vStarring = view.findViewById(R.id.show_profile_starring);
+        vGenres = view.findViewById(R.id.show_profile_genres);
 
         fetchProfile();
         return view;
@@ -131,7 +128,8 @@ public class ShowProfileFragment extends Fragment {
                 } catch (NumberFormatException e){
                     duration = 0;
                 }
-                vRuntime.setText(String.valueOf(duration) + " mins");
+                String minDuration = String.valueOf(duration) + " mins";
+                vRuntime.setText(minDuration);
                 vRated.setText(item.contentRating);
 
                 try {

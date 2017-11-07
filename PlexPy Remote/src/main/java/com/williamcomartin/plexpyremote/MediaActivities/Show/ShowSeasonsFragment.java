@@ -1,6 +1,6 @@
 package com.williamcomartin.plexpyremote.MediaActivities.Show;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -12,10 +12,9 @@ import android.widget.GridView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
+import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
 import com.williamcomartin.plexpyremote.Models.LibraryMediaModels;
 import com.williamcomartin.plexpyremote.NavBaseActivity;
@@ -27,12 +26,10 @@ import java.util.ArrayList;
 /**
  * Created by wcomartin on 2016-12-14.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class ShowSeasonsFragment extends Fragment {
-    private View view;
     private String ratingKey;
 
-    private GridView vSeasonsGrid;
     private ShowSeasonsGridAdapter gridAdapter;
     private String parentTitle;
 
@@ -47,11 +44,11 @@ public class ShowSeasonsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_show_seasons, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_seasons, container, false);
 
         gridAdapter = new ShowSeasonsGridAdapter(this.getContext(), new ArrayList<LibraryMediaModels.LibraryMediaItem>());
 
-        vSeasonsGrid = (GridView) view.findViewById(R.id.show_seasons_grid);
+        GridView vSeasonsGrid = view.findViewById(R.id.show_seasons_grid);
         vSeasonsGrid.setAdapter(gridAdapter);
 
         fetchProfile();
@@ -60,17 +57,19 @@ public class ShowSeasonsFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ActionBar actionBar = ((NavBaseActivity)activity).getSupportActionBar();
-        parentTitle = String.valueOf(actionBar.getTitle());
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ActionBar actionBar = ((NavBaseActivity) context).getSupportActionBar();
+        if (actionBar != null) {
+            parentTitle = String.valueOf(actionBar.getTitle());
+        }
     }
 
     public void setRatingKey(String ratingKey) {
         this.ratingKey = ratingKey;
     }
 
-    private void fetchProfile(){
+    private void fetchProfile() {
         String url = "";
         try {
             url = UrlHelpers.getHostPlusAPIKey() + "&cmd=get_library_media_info&length=1000&rating_key=" + ratingKey;

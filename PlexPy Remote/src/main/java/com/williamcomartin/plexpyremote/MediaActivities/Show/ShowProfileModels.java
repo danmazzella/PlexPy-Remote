@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by wcomartin on 2016-12-14.
  */
-
+@SuppressWarnings("DefaultFileTemplate")
 public class ShowProfileModels {
 
     public Response response;

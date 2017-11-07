@@ -10,13 +10,11 @@ public class ShowPagerAdapter extends FragmentStatePagerAdapter {
 
     private final String[] tabNames = {"Profile", "Seasons", "History"};
 
-    private final FragmentManager fm;
     private String ratingKey;
 
-    public ShowPagerAdapter(FragmentManager fm, String ratingKey) {
+    ShowPagerAdapter(FragmentManager fm, String ratingKey) {
         super(fm);
 
-        this.fm = fm;
         this.ratingKey = ratingKey;
     }
 
