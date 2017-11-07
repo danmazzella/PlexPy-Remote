@@ -37,7 +37,7 @@ public class UserStatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_stats, container, false);
-        linearLayout = (LinearLayout) view.findViewById(R.id.user_stats_watch_time_stats);
+        linearLayout = view.findViewById(R.id.user_stats_watch_time_stats);
         setupWatchTimeStats();
         setupPlayerStats();
         return view;
