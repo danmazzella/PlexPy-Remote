@@ -30,7 +30,7 @@ public class LibraryStatisticsActivity extends NavBaseActivity {
         setContentView(R.layout.activity_library_statistics);
         setupActionBar();
 
-        rvLibStats = (RecyclerView) findViewById(R.id.rvLibStats);
+        rvLibStats = findViewById(R.id.rvLibStats);
         rvLibStats.setLayoutManager(new LinearLayoutManager(this));
 
         refreshData();
@@ -75,7 +75,7 @@ public class LibraryStatisticsActivity extends NavBaseActivity {
 
     protected void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.libraries);
+        if (actionBar != null) actionBar.setTitle(R.string.libraries);
     }
 
     @Override
