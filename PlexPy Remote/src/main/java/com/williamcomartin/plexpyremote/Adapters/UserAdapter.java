@@ -1,7 +1,6 @@
 package com.williamcomartin.plexpyremote.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.ImageCacheManager;
-import com.williamcomartin.plexpyremote.MediaActivities.Season.SeasonActivity;
-import com.williamcomartin.plexpyremote.Models.LibraryMediaModels;
 import com.williamcomartin.plexpyremote.Models.UserModels;
 import com.williamcomartin.plexpyremote.R;
 
@@ -27,6 +23,7 @@ import java.util.List;
 /**
  * Created by wcomartin on 2015-11-20.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private OnItemClickListener listener;
@@ -37,16 +34,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        protected CardView vCard;
+        CardView vCard;
 
-        protected TextView vUserName;
-        protected TextView vLastSeen;
+        TextView vUserName;
+        TextView vLastSeen;
         protected TextView vTotalPlays;
 
         protected TextView vIPAddress;
         protected TextView vPlayer;
         protected TextView vPlatform;
-        protected TextView vLastWatched;
+        TextView vLastWatched;
 
 
         protected NetworkImageView vImage;
@@ -54,13 +51,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
 
-            vCard = (CardView) itemView.findViewById(R.id.user_card_view);
+            vCard = itemView.findViewById(R.id.user_card_view);
 
-            vUserName = (TextView) itemView.findViewById(R.id.user_card_name);
-            vLastSeen = (TextView) itemView.findViewById(R.id.user_card_last_seen);
-            vLastWatched = (TextView) itemView.findViewById(R.id.user_card_watched);
+            vUserName = itemView.findViewById(R.id.user_card_name);
+            vLastSeen = itemView.findViewById(R.id.user_card_last_seen);
+            vLastWatched = itemView.findViewById(R.id.user_card_watched);
 
-            vImage = (NetworkImageView) itemView.findViewById(R.id.user_card_image);
+            vImage = itemView.findViewById(R.id.user_card_image);
         }
     }
 
@@ -88,8 +85,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         View contactView = inflater.inflate(R.layout.item_user, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
