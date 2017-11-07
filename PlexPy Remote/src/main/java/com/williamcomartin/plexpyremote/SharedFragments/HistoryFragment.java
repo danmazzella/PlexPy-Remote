@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.williamcomartin.plexpyremote.Adapters.HistoryAdapter;
-import com.williamcomartin.plexpyremote.ApplicationController;
 import com.williamcomartin.plexpyremote.Helpers.Exceptions.NoServerException;
-import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.UrlHelpers;
+import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.GsonRequest;
 import com.williamcomartin.plexpyremote.Helpers.VolleyHelpers.RequestManager;
 import com.williamcomartin.plexpyremote.Models.HistoryModels;
 import com.williamcomartin.plexpyremote.R;
@@ -39,7 +38,7 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        mHistoryRecyclerView = (RecyclerView) view.findViewById(R.id.shared_history_rv);
+        mHistoryRecyclerView = view.findViewById(R.id.shared_history_rv);
         mHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mHistoryRecyclerView.setAdapter(new HistoryAdapter(this.getContext(), new ArrayList<HistoryModels.HistoryRecord>()));
 
