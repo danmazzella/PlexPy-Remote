@@ -30,30 +30,31 @@ import java.util.List;
 /**
  * Created by wcomartin on 2015-12-03.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class LibraryDetailsMediaListAdapter extends RecyclerView.Adapter<LibraryDetailsMediaListAdapter.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
 
     private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        protected final CardView mCard;
-        protected final NetworkImageView mImage;
-        protected final TextView mTitle;
-        protected final TextView mYear;
-        protected final TextView mLastPlayed;
-        protected final TextView mTotalPlays;
-        protected final TextView mFileSize;
+        final CardView mCard;
+        final NetworkImageView mImage;
+        final TextView mTitle;
+        final TextView mYear;
+        final TextView mLastPlayed;
+        final TextView mTotalPlays;
+        final TextView mFileSize;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            mCard = (CardView) itemView.findViewById(R.id.library_details_media_card);
-            mImage = (NetworkImageView) itemView.findViewById(R.id.library_details_media_image);
-            mTitle = (TextView) itemView.findViewById(R.id.library_details_media_title);
-            mYear = (TextView) itemView.findViewById(R.id.library_details_media_year);
-            mLastPlayed = (TextView) itemView.findViewById(R.id.library_details_media_last_played);
-            mTotalPlays = (TextView) itemView.findViewById(R.id.library_details_media_total_plays);
-            mFileSize = (TextView) itemView.findViewById(R.id.library_details_media_file_size);
+            mCard = itemView.findViewById(R.id.library_details_media_card);
+            mImage = itemView.findViewById(R.id.library_details_media_image);
+            mTitle = itemView.findViewById(R.id.library_details_media_title);
+            mYear = itemView.findViewById(R.id.library_details_media_year);
+            mLastPlayed = itemView.findViewById(R.id.library_details_media_last_played);
+            mTotalPlays = itemView.findViewById(R.id.library_details_media_total_plays);
+            mFileSize = itemView.findViewById(R.id.library_details_media_file_size);
         }
     }
 
@@ -65,7 +66,7 @@ public class LibraryDetailsMediaListAdapter extends RecyclerView.Adapter<Library
         resetItems();
     }
 
-    public void resetItems() {
+    private void resetItems() {
         this.mediaItems = new ArrayList<>();
         notifyDataSetChanged();
     }
@@ -90,8 +91,7 @@ public class LibraryDetailsMediaListAdapter extends RecyclerView.Adapter<Library
         View contactView = inflater.inflate(R.layout.item_media_list, parent, false);
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @NonNull
@@ -152,7 +152,7 @@ public class LibraryDetailsMediaListAdapter extends RecyclerView.Adapter<Library
 
     }
 
-    public static String humanReadableByteCount(long bytes, boolean si) {
+    private static String humanReadableByteCount(long bytes, boolean si) {
         int unit = si ? 1000 : 1024;
         if (bytes < unit) return bytes + " B";
         int exp = (int) (Math.log(bytes) / Math.log(unit));
@@ -160,7 +160,7 @@ public class LibraryDetailsMediaListAdapter extends RecyclerView.Adapter<Library
         return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
-    protected String getTitle(String input) {
+    private String getTitle(String input) {
         if (input.startsWith("The ")) return input.substring(4);
         return input;
     }
